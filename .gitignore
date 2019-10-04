@@ -1,0 +1,19 @@
+# dependencies
+node_modules/
+
+# expo
+.expo*/
+
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+web-report/
+
+yarn-error.log*
+
+# misc
+.DS_Store
