@@ -25,10 +25,10 @@ class PricePerShare extends Component {
 				{ Platform.OS === 'ios' ?
 					<TextInput
 				        keyboardType="numeric"
-						placeholder="Price per Share"
 						onChangeText={this.handlePriceChange}
+						placeholder="Price per Share ($)"
 						selectionColor={grayDark}
-			        	style={[fonts.h2, forms.textInputIOS, forms.textInput, styles.textInput]}
+			        	style={[fonts.h2, forms.textInput, forms.textInputIOS, styles.textInput]}
 				        value={pps}
 			        />
 			        :
@@ -36,7 +36,7 @@ class PricePerShare extends Component {
 				        keyboardType="numeric"
 				        onChangeText={this.handlePriceChange}
 						placeholder="Price per Share"
-						selectionColor={black}
+						selectionColor={grayDark}
 			        	style={[fonts.h2, forms.textInput, styles.textInput]}
 				        value={pps}
 			        />

@@ -10,24 +10,38 @@ import { fonts } from './src/utils/styles/fonts'
 
 class FifoCalculator extends Component {
     state = {
-        gainPps: 0,
-        lossPps: 0
+        purchasePps: 0,
+        purchaseShares: 0,
+        salePps: 0,
+        saleShares: 0
     }
 
-    changeGainPrice = pricePerShare => {
+    changePurchasePps = pricePerShare => {
         this.setState({
-            gainPps: pricePerShare
+            purchasePps: pricePerShare
         })
     }
 
-    changeLossPrice = pricePerShare => {
+    changePurchaseShares = numberOfShares => {
         this.setState({
-            lossPps: pricePerShare
+            purchaseShares: numberOfShares
+        })
+    }
+
+    changeSalePps = pricePerShare => {
+        this.setState({
+            salePps: pricePerShare
+        })
+    }
+
+    changeSaleShares = numberOfShares => {
+        this.setState({
+            saleShares: numberOfShares
         })
     }
 
     render () {
-        const { gainPps, lossPps } = this.state
+        const { purchasePps, purchaseShares, salePps, saleShares } = this.state
 
         return (
             <View style={styles.viewContainer}>
@@ -37,28 +51,47 @@ class FifoCalculator extends Component {
                     </Text>
                 </TextContainer>
 
-                <Text
-                    style={[fonts.h2, styles.text]}>Loss
-                </Text>
-                <PricePerShare
-                    onPriceChange={lossPrice => {
-                        this.changeLossPrice(lossPrice)
-                    }}
-                />
-                <Text style={{color: 'white'}}>{this.state.lossPps}</Text>
-                <NumShares />
+                <View>
+                    <Text
+                        style={[fonts.h2, styles.text]}>Purchase
+                    </Text>
+
+                    <PricePerShare
+                        onPriceChange={purchasePrice => {
+                            this.changePurchasePps(purchasePrice)
+                        }}
+                    />
+                    <Text style={{color: 'white'}}>{purchasePps}</Text>
+
+                    <NumShares
+                        onNumChange={purchaseNum => {
+                            this.changePurchaseShares(purchaseNum)
+                        }}
+                    />
+                    <Text style={{color: 'white'}}>{purchaseShares}</Text>
+                </View>
+
                 <DPiOS />
 
-                <Text
-                    style={[fonts.h2, styles.text]}>Gain
-                </Text>
-                <PricePerShare
-                    onPriceChange={gainPrice => {
-                        this.changeGainPrice(gainPrice)
-                    }}
-                />
-                <Text style={{color: 'white'}}>{this.state.gainPps}</Text>
-                <NumShares />
+                <View>
+                    <Text
+                        style={[fonts.h2, styles.text]}>Sale
+                    </Text>
+
+                    <PricePerShare
+                        onPriceChange={salePrice => {
+                            this.changeSalePps(salePrice)
+                        }}
+                    />
+                    <Text style={{color: 'white'}}>{salePps}</Text>
+
+                    <NumShares
+                        onNumChange={saleNum => {
+                            this.changeSaleShares(saleNum)
+                        }}
+                    />
+                    <Text style={{color: 'white'}}>{saleShares}</Text>
+                </View>
 
                 <SubmitBtn />
 

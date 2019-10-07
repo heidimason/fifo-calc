@@ -1,37 +1,49 @@
-import React from 'react'
-import { Platform, TextInput, StyleSheet } from 'react-native'
-import styled from 'styled-components/native'
+import React, { Component } from 'react'
+import { Platform, TextInput, View } from 'react-native'
+import { grayDark } from '../utils/styles/colors'
 import { fonts } from '../utils/styles/fonts'
 import { forms } from '../utils/styles/forms'
 
-const NumShares = () => {
-	return (
-		<ViewTextInput>
-			{ Platform.OS === 'ios' ?
-				<TextInput
-					placeholder="Number of Shares"
-		        	style={[fonts.h2, forms.iosTextInput, forms.textInput, styles.textInput]}
-			        value={0}
-		        />
-		        :
-		        <TextInput
-					placeholder="Number of Shares"
-		        	style={[fonts.h2, forms.textInput, styles.textInput]}
-			        value={0}
-		        />
-		     }
-	    </ViewTextInput>
-	)
+class NumShares extends Component {
+	state = {
+		numShares: 0
+	}
+
+	handleNumChange = num => {
+		const { onNumChange } = this.props
+
+		onNumChange(num)
+
+		this.setState({num})
+	}
+
+	render() {
+		const { numShares } = this.state
+
+		return (
+			<View>
+				{ Platform.OS === 'ios' ?
+					<TextInput
+				        keyboardType="numeric"
+				        onChangeText={this.handleNumChange}
+						placeholder="Number of Shares"
+						selectionColor={grayDark}
+			        	style={[fonts.h2, forms.textInput, forms.textInputIOS]}
+				        value={numShares}
+			        />
+			        :
+			        <TextInput
+				        keyboardType="numeric"
+				        onChangeText={this.handleNumChange}
+						placeholder="Number of Shares"
+						selectionColor={grayDark}
+			        	style={[fonts.h2, forms.textInput]}
+				        value={numShares}
+			        />
+			     }
+		    </View>
+		)
+	}
 }
-
-const ViewTextInput = styled.View`
-    width: 100%
-`
-
-const styles = StyleSheet.create({
-    textInput: {
-
-    }
-})
 
 export default NumShares
