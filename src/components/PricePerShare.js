@@ -1,32 +1,50 @@
-import React from 'react'
-import { Platform, TextInput, StyleSheet } from 'react-native'
-import styled from 'styled-components/native'
+import React, { Component } from 'react'
+import { Platform, StyleSheet, TextInput, View } from 'react-native'
+import { grayDark } from '../utils/styles/colors'
 import { fonts } from '../utils/styles/fonts'
 import { forms } from '../utils/styles/forms'
 
-const PricePerShare = () => {
-	return (
-		<ViewTextInput>
-			{ Platform.OS === 'ios' ?
-				<TextInput
-					placeholder="Price per Share"
-		        	style={[fonts.h2, forms.iosTextInput, forms.textInput, styles.textInput]}
-			        value={0}
-		        />
-		        :
-				<TextInput
-					placeholder="Price per Share"
-		        	style={[fonts.h2, forms.textInput, styles.textInput]}
-			        value={0}
-		        />
-		    }
-	    </ViewTextInput>
-	)
-}
+class PricePerShare extends Component {
+	state = {
+		pps: 0
+	}
 
-const ViewTextInput = styled.View`
-	width: 100%
-`
+	handlePriceChange = price => {
+		const { onPriceChange } = this.props
+
+		onPriceChange(price)
+
+		this.setState({price})
+	}
+
+	render() {
+		const { pps } = this.state
+
+		return (
+			<View>
+				{ Platform.OS === 'ios' ?
+					<TextInput
+				        keyboardType="numeric"
+						placeholder="Price per Share"
+						onChangeText={this.handlePriceChange}
+						selectionColor={grayDark}
+			        	style={[fonts.h2, forms.textInputIOS, forms.textInput, styles.textInput]}
+				        value={pps}
+			        />
+			        :
+					<TextInput
+				        keyboardType="numeric"
+				        onChangeText={this.handlePriceChange}
+						placeholder="Price per Share"
+						selectionColor={black}
+			        	style={[fonts.h2, forms.textInput, styles.textInput]}
+				        value={pps}
+			        />
+			    }
+		    </View>
+		)
+	}
+}
 
 const styles = StyleSheet.create({
     textInput: {
