@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StatusBar, StyleSheet, Text, View } from 'react-native'
 import styled from 'styled-components/native'
 import PricePerShare from './src/components/PricePerShare'
 import NumShares from './src/components/NumShares'
@@ -41,6 +41,8 @@ class FifoCalculator extends Component {
     }
 
     render () {
+        StatusBar.setBarStyle('light-content', true)
+
         const { purchasePps, purchaseShares, salePps, saleShares } = this.state
 
         return (
