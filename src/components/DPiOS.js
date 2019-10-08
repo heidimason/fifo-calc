@@ -32,7 +32,6 @@ class DPiOS extends Component {
 const styles = StyleSheet.create({
 	container: {
         backgroundColor: white,
-        marginTop: 40,
         marginHorizontal: 40
     }
 })

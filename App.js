@@ -50,13 +50,13 @@ class FifoCalculator extends Component {
             <View style={styles.viewContainer}>
                 <TextContainer>
                     <Text
-                        style={[fonts.h1, styles.text]}>FIFO Profit Calculator
+                        style={[fonts.h1, styles.h1, styles.text]}>FIFO Profit Calculator
                     </Text>
                 </TextContainer>
 
                 <View>
                     <Text
-                        style={[fonts.h2, styles.text]}>Purchase
+                        style={[fonts.h2, styles.h2, styles.text]}>Purchase
                     </Text>
 
                     <PricePerShare
@@ -64,14 +64,12 @@ class FifoCalculator extends Component {
                             this.changePurchasePps(purchasePrice)
                         }}
                     />
-                    <Text style={{color: 'white'}}>{purchasePps}</Text>
 
                     <NumShares
                         onNumChange={purchaseNum => {
                             this.changePurchaseShares(purchaseNum)
                         }}
                     />
-                    <Text style={{color: 'white'}}>{purchaseShares}</Text>
                 </View>
 
                 { Platform.OS === 'ios' ?
@@ -82,7 +80,7 @@ class FifoCalculator extends Component {
 
                 <View>
                     <Text
-                        style={[fonts.h2, styles.text]}>Sale
+                        style={[fonts.h2, styles.h2, styles.text]}>Sale
                     </Text>
 
                     <PricePerShare
@@ -90,14 +88,12 @@ class FifoCalculator extends Component {
                             this.changeSalePps(salePrice)
                         }}
                     />
-                    <Text style={{color: 'white'}}>{salePps}</Text>
 
                     <NumShares
                         onNumChange={saleNum => {
                             this.changeSaleShares(saleNum)
                         }}
                     />
-                    <Text style={{color: 'white'}}>{saleShares}</Text>
                 </View>
 
                 <SubmitBtn />
@@ -117,13 +113,21 @@ const TextContainer = styled.View`
 const styles = StyleSheet.create({
     viewContainer: {
         backgroundColor: grayDark,
-        flex: 1
+        flex: 1,
+        justifyContent: 'space-around'
+    },
+    h1: {
+        marginTop: 20
+    },
+    h2: {
+        marginBottom: 10
     },
     text: {
         color: white,
-        marginTop: 50,
-        marginBottom: 10,
         marginHorizontal: 40
+    },
+    profit: {
+        marginBottom: 20
     }
 })
 

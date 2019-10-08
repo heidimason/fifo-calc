@@ -36,8 +36,7 @@ const styles = StyleSheet.create({
         width: '65%'
     },
     submitBtn: {
-        backgroundColor: orange,
-        marginTop: 50
+        backgroundColor: orange
     },
     submitBtnText: {
         color: white,
