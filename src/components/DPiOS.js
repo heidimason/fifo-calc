@@ -22,6 +22,7 @@ class DPiOS extends Component {
                 <DatePickerIOS
                     date={this.state.chosenDate}
                     onDateChange={this.setDate}
+                    mode="date"
                 />
             </View>
         )
