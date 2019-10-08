@@ -6,7 +6,7 @@ import { forms } from '../utils/styles/forms'
 
 class NumShares extends Component {
 	state = {
-		numShares: 0
+		numShares: null
 	}
 
 	handleNumChange = num => {

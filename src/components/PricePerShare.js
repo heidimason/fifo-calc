@@ -6,7 +6,7 @@ import { forms } from '../utils/styles/forms'
 
 class PricePerShare extends Component {
 	state = {
-		pps: 0
+		pps: null
 	}
 
 	handlePriceChange = price => {

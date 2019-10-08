@@ -8,8 +8,8 @@ function SubmitBtn ({ children, onPress, style = {} }) {
     	<TouchableOpacity
         	style={[
                 Platform.OS === 'ios'
-                ? styles.iosSubmitBtn
-                : styles.AndroidSubmitBtn,
+                ? styles.submitBtnIOS
+                : styles.submitBtnAndroid,
                 styles.submitBtn
             ]}
         	onPress={onPress}>
@@ -21,13 +21,13 @@ function SubmitBtn ({ children, onPress, style = {} }) {
 }
 
 const styles = StyleSheet.create({
-    iosSubmitBtn: {
+    submitBtnIOS: {
         borderRadius: 7,
         height: 45,
         marginHorizontal: 40,
         paddingVertical: 6
     },
-    AndroidSubmitBtn: {
+    submitBtnAndroid: {
         borderRadius: 2,
         height: 45,
         marginRight: 15,

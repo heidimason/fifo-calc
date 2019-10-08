@@ -11,6 +11,7 @@ import { fonts } from './src/utils/styles/fonts'
 
 class FifoCalculator extends Component {
     state = {
+        profit: 0,
         purchasePps: 0,
         purchaseShares: 0,
         salePps: 0,
@@ -41,10 +42,18 @@ class FifoCalculator extends Component {
         })
     }
 
+    calculateProfit = () => {
+        const { purchasePps, purchaseShares, salePps, saleShares } = this.state
+
+        this.setState({
+            profit: (salePps * saleShares) - (purchasePps * purchaseShares)
+        })
+    }
+
     render () {
         StatusBar.setBarStyle('light-content', true)
 
-        const { purchasePps, purchaseShares, salePps, saleShares } = this.state
+        const { profit, purchasePps, purchaseShares, salePps, saleShares } = this.state
 
         return (
             <View style={styles.viewContainer}>
@@ -96,10 +105,12 @@ class FifoCalculator extends Component {
                     />
                 </View>
 
-                <SubmitBtn />
+                <SubmitBtn
+                    onPress={this.calculateProfit}
+                />
 
                 <Text
-                    style={[fonts.h2, styles.text]}>Profit: {}
+                    style={[fonts.h2, styles.text]}>Profit: {profit}
                 </Text>
             </View>
         )
