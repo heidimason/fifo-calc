@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { StatusBar, StyleSheet, Text, View } from 'react-native'
+import { Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
 import styled from 'styled-components/native'
 import PricePerShare from './src/components/PricePerShare'
 import NumShares from './src/components/NumShares'
+import DPAndroid from './src/components/DPAndroid'
 import DPiOS from './src/components/DPiOS'
 import SubmitBtn from './src/components/SubmitBtn'
 import { grayDark, white } from './src/utils/styles/colors'
@@ -73,7 +74,11 @@ class FifoCalculator extends Component {
                     <Text style={{color: 'white'}}>{purchaseShares}</Text>
                 </View>
 
-                <DPiOS />
+                { Platform.OS === 'ios' ?
+                    <DPiOS />
+                    :
+                    <DPAndroid />
+                }
 
                 <View>
                     <Text
