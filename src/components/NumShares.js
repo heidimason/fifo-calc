@@ -22,25 +22,25 @@ class NumShares extends Component {
 
 		return (
 			<View>
-				{ Platform.OS === 'ios' ?
-					<TextInput
-				        keyboardType="numeric"
-				        onChangeText={this.handleNumChange}
-						placeholder="Number of Shares"
-						selectionColor={grayDark}
-			        	style={[fonts.h2, forms.textInput, forms.textInputIOS]}
-				        value={numShares}
-			        />
-			        :
-			        <TextInput
-				        keyboardType="numeric"
-				        onChangeText={this.handleNumChange}
-						placeholder="Number of Shares"
-						selectionColor={grayDark}
-			        	style={[fonts.h2, forms.textInput]}
-				        value={numShares}
-			        />
-			     }
+			{ Platform.OS === 'ios' ?
+				<TextInput
+			        keyboardType="numeric"
+			        onChangeText={this.handleNumChange}
+					placeholder="Number of Shares"
+					selectionColor={grayDark}
+		        	style={[fonts.h2, forms.textInput, forms.textInputIOS]}
+			        value={numShares}
+		        />
+		        :
+		        <TextInput
+			        keyboardType="numeric"
+			        onChangeText={this.handleNumChange}
+					placeholder="Number of Shares"
+					selectionColor={grayDark}
+		        	style={[fonts.h2, forms.textInput]}
+			        value={numShares}
+		        />
+		     }
 		    </View>
 		)
 	}
