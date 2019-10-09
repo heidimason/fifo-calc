@@ -5,24 +5,29 @@ import { fonts } from '../utils/styles/fonts'
 import { forms } from '../utils/styles/forms'
 
 class DPiOS extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {chosenDate: new Date()}
-
-        this.setDate = this.setDate.bind(this)
+    state = {
+        chosenDate: new Date()
     }
 
-    setDate(newDate) {
-        this.setState({chosenDate: newDate})
+    setDate = newDate => {
+        const { onDPChange } = this.props
+
+        onDPChange(newDate)
+
+        this.setState({
+            chosenDate: newDate
+        })
     }
 
     render() {
+        const { chosenDate } = this.state
+
         return (
             <View style={[styles.container, forms.textInputIOS]}>
                 <DatePickerIOS
-                    date={this.state.chosenDate}
-                    onDateChange={this.setDate}
+                    date={chosenDate}
                     mode="date"
+                    onDateChange={this.setDate}
                 />
             </View>
         )

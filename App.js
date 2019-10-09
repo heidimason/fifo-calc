@@ -12,10 +12,17 @@ import { fonts } from './src/utils/styles/fonts'
 class FifoCalculator extends Component {
     state = {
         profit: 0,
+        purchaseDate: {},
         purchasePps: 0,
         purchaseShares: 0,
         salePps: 0,
         saleShares: 0
+    }
+
+    changeDate = dateOfPurchase => {
+        this.setState({
+            purchaseDate: dateOfPurchase
+        })
     }
 
     changePurchasePps = pricePerShare => {
@@ -53,7 +60,7 @@ class FifoCalculator extends Component {
     render () {
         StatusBar.setBarStyle('light-content', true)
 
-        const { profit, purchasePps, purchaseShares, salePps, saleShares } = this.state
+        const { profit, purchaseDate } = this.state
 
         return (
             <View style={styles.viewContainer}>
@@ -82,7 +89,14 @@ class FifoCalculator extends Component {
                 </View>
 
                 { Platform.OS === 'ios' ?
-                    <DPiOS />
+                    <View>
+                        <DPiOS
+                            onDPChange={date => {
+                                this.changeDate(date)
+                            }}
+                        />
+                        <Text style={{color: 'white'}}>{purchaseDate.toString()}</Text>
+                    </View>
                     :
                     <DPAndroid />
                 }
