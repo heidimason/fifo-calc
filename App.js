@@ -1,66 +1,82 @@
 import React, { Component } from 'react'
 import { Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
 import styled from 'styled-components/native'
-import PricePerShare from './src/components/PricePerShare'
+import SharePrice from './src/components/SharePrice'
 import NumShares from './src/components/NumShares'
 import DPAndroid from './src/components/DPAndroid'
 import DPiOS from './src/components/DPiOS'
 import SubmitBtn from './src/components/SubmitBtn'
 import { grayDark, white } from './src/utils/styles/colors'
 import { fonts } from './src/utils/styles/fonts'
+// import { formatDateStr } from './src/utils/helpers'
 
 class FifoCalculator extends Component {
     state = {
         profit: 0,
-        purchaseDate: {},
-        purchasePps: 0,
-        purchaseShares: 0,
-        salePps: 0,
-        saleShares: 0
+        // purchaseDate: new Date(),
+        purchases: [],
+        purchaseSharePrice: 0,
+        purchaseShareNum: 0,
+        saleSharePrice: 0,
+        saleShareNum: 0
     }
 
-    changeDate = dateOfPurchase => {
+    changePurchasePrice = pricePerShare => {
         this.setState({
-            purchaseDate: dateOfPurchase
-        })
-    }
-
-    changePurchasePps = pricePerShare => {
-        this.setState({
-            purchasePps: pricePerShare
+            purchaseSharePrice: pricePerShare
         })
     }
 
     changePurchaseShares = numberOfShares => {
         this.setState({
-            purchaseShares: numberOfShares
+            purchaseShareNum: numberOfShares
         })
     }
 
-    changeSalePps = pricePerShare => {
+    // changeDate = dateOfPurchase => {
+    //     this.setState({
+    //         purchaseDate: dateOfPurchase
+    //     })
+    // }
+
+    submitPurchase = () => {
+        const { purchaseDate, purchases, purchaseSharePrice, purchaseShareNum } = this.state
+
         this.setState({
-            salePps: pricePerShare
+            purchases: purchases.concat([
+                {
+                    // date: formatDateStr(purchaseDate),
+                    num: purchaseShareNum,
+                    price: purchaseSharePrice
+                }
+            ])
+        })
+    }
+
+    changeSalePrice = pricePerShare => {
+        this.setState({
+            saleSharePrice: pricePerShare
         })
     }
 
     changeSaleShares = numberOfShares => {
         this.setState({
-            saleShares: numberOfShares
+            saleShareNum: numberOfShares
         })
     }
 
     calculateProfit = () => {
-        const { purchasePps, purchaseShares, salePps, saleShares } = this.state
+        const { purchaseSharePrice, purchaseShareNum, saleSharePrice, saleShareNum } = this.state
 
         this.setState({
-            profit: (salePps * saleShares) - (purchasePps * purchaseShares)
+            profit: (saleSharePrice * saleShareNum) - (purchaseSharePrice * purchaseShareNum)
         })
     }
 
     render () {
         StatusBar.setBarStyle('light-content', true)
 
-        const { profit, purchaseDate } = this.state
+        const { profit, purchaseDate, purchases } = this.state
 
         return (
             <View style={styles.viewContainer}>
@@ -75,20 +91,20 @@ class FifoCalculator extends Component {
                         style={[fonts.h2, styles.h2, styles.text]}>Purchase
                     </Text>
 
-                    <PricePerShare
-                        onPriceChange={purchasePrice => {
-                            this.changePurchasePps(purchasePrice)
-                        }}
-                    />
-
                     <NumShares
                         onNumChange={purchaseNum => {
                             this.changePurchaseShares(purchaseNum)
                         }}
                     />
+
+                    <SharePrice
+                        onPriceChange={purchasePrice => {
+                            this.changePurchasePrice(purchasePrice)
+                        }}
+                    />
                 </View>
 
-                { Platform.OS === 'ios' ?
+                { /* Platform.OS === 'ios' ?
                     <View>
                         <DPiOS
                             onDPChange={date => {
@@ -104,37 +120,48 @@ class FifoCalculator extends Component {
                                 this.changeDate(date)
                             }}
                         />
-                        <Text style={{color: 'white'}}>{purchaseDate.toString()}</Text>
                     </View>
-                }
-
-                <View>
-                    <Text
-                        style={[fonts.h2, styles.h2, styles.text]}>Sale
-                    </Text>
-
-                    <PricePerShare
-                        onPriceChange={salePrice => {
-                            this.changeSalePps(salePrice)
-                        }}
-                    />
-
-                    <NumShares
-                        onNumChange={saleNum => {
-                            this.changeSaleShares(saleNum)
-                        }}
-                    />
-                </View>
+                */ }
 
                 <SubmitBtn
-                    onPress={this.calculateProfit}
+                    onPress={this.submitPurchase}
+                    children="Submit Purchase"
                 />
 
-                <TextContainer>
-                    <Text
-                        style={[fonts.h2, styles.text, styles.profit]}>Profit: {profit}
-                    </Text>
-                </TextContainer>
+                <Text style={{color: 'white'}}>{JSON.stringify(purchases)}</Text>
+
+                { /* purchases.length &&
+                    <View>
+                        <View>
+                            <Text
+                                style={[fonts.h2, styles.h2, styles.text]}>Sale
+                            </Text>
+
+                            <NumShares
+                                onNumChange={saleNum => {
+                                    this.changeSaleShares(saleNum)
+                                }}
+                            />
+
+                            <SharePrice
+                                onPriceChange={salePrice => {
+                                    this.changeSalePrice(salePrice)
+                                }}
+                            />
+                        </View>
+
+                        <SubmitBtn
+                            onPress={this.calculateProfit}
+                            children="Calculate"
+                        />
+
+                        <TextContainer>
+                            <Text
+                                style={[fonts.h2, styles.text, styles.profit]}>Profit: {profit}
+                            </Text>
+                        </TextContainer>
+                    </View>
+                */ }
             </View>
         )
     }

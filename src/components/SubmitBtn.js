@@ -14,7 +14,7 @@ const SubmitBtn = ({ children, onPress, style = {} }) => {
             ]}
         	onPress={onPress}>
         	<Text
-                style={[styles.submitBtnText, fonts.h2]}>{children}Calculate
+                style={[fonts.h2, styles.submitBtnText]}>{children}
             </Text>
     	</TouchableOpacity>
   	)
