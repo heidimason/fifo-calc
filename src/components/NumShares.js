@@ -19,20 +19,18 @@ class NumShares extends Component {
 		const { numShares } = this.state
 
 		return (
-			<View>
-				<TextInput
-			        keyboardType="numeric"
-			        onChangeText={this.handleNumChange}
-					placeholder="Number of Shares"
-					selectionColor={grayDark}
-		        	style={[
-		        		Platform.OS === 'ios'
-		        		? forms.inputIOS
-		        		: forms.inputAndroid,
-						[fonts.h2, forms.textInput, styles.textInput]
-					]}
-		        />
-		    </View>
+			<TextInput
+		        keyboardType="numeric"
+		        onChangeText={this.handleNumChange}
+				placeholder="Number of Shares"
+				selectionColor={grayDark}
+	        	style={[
+	        		Platform.OS === 'ios'
+	        		? forms.inputIOS
+	        		: forms.inputAndroid,
+					[fonts.h2, forms.textInput, styles.textInput]
+				]}
+	        />
 		)
 	}
 }
