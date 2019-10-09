@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Platform, TextInput, View } from 'react-native'
+import { Platform, StyleSheet, TextInput, View } from 'react-native'
 import { grayDark } from '../utils/styles/colors'
 import { fonts } from '../utils/styles/fonts'
 import { forms } from '../utils/styles/forms'
@@ -20,26 +20,27 @@ class NumShares extends Component {
 
 		return (
 			<View>
-			{ Platform.OS === 'ios' ?
 				<TextInput
 			        keyboardType="numeric"
 			        onChangeText={this.handleNumChange}
 					placeholder="Number of Shares"
 					selectionColor={grayDark}
-		        	style={[fonts.h2, forms.textInput, forms.inputIOS]}
+		        	style={[
+		        		Platform.OS === 'ios'
+		        		? forms.inputIOS
+		        		: forms.inputAndroid,
+						[fonts.h2, forms.textInput, styles.textInput]
+					]}
 		        />
-		        :
-		        <TextInput
-			        keyboardType="numeric"
-			        onChangeText={this.handleNumChange}
-					placeholder="Number of Shares"
-					selectionColor={grayDark}
-		        	style={[fonts.h2, forms.textInput, forms.inputAndroid]}
-		        />
-		     }
 		    </View>
 		)
 	}
 }
+
+const styles = StyleSheet.create({
+    textInput: {
+        marginBottom: 15
+    }
+})
 
 export default NumShares
