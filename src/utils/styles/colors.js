@@ -1,7 +1,8 @@
-export const black = '#000'
-export const grayLight = '#888'
-export const grayXLight = '#ccc'
-export const grayDark = '#222'
-export const orange = '#ffa500'
-export const red = '#ff0000'
-export const white = '#fff'
+export const black = '#000',
+			 blue = '#0099ff',
+			 grayLight = '#888',
+			 grayXLight = '#ccc',
+			 grayDark = '#222',
+			 orange = '#ffa500',
+			 red = '#ff0000',
+			 white = '#fff'

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { DatePickerAndroid, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { grayLight, white } from '../utils/styles/colors'
+import { blue, white } from '../utils/styles/colors'
 import { fonts } from '../utils/styles/fonts'
 import { forms } from '../utils/styles/forms'
 
@@ -26,7 +26,7 @@ class DPAndroid extends Component {
         return (
             <TouchableOpacity
                 onPress={() => this.openDatePicker()}>
-                <Text style={[fonts.h2, styles.text]}>Select Date</Text>
+                <Text style={[fonts.h2, forms.inputAndroid, styles.text]}>Select Date</Text>
             </TouchableOpacity>
         )
     }
@@ -34,7 +34,7 @@ class DPAndroid extends Component {
 
 const styles = StyleSheet.create({
     text: {
-        backgroundColor: grayLight,
+        backgroundColor: blue,
         color: white,
         height: 45,
         marginHorizontal: 40,

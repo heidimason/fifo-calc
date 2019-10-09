@@ -13,8 +13,6 @@ class PricePerShare extends Component {
 		const { onPriceChange } = this.props
 
 		onPriceChange(price)
-
-		this.setState({price})
 	}
 
 	render() {
@@ -28,8 +26,7 @@ class PricePerShare extends Component {
 					onChangeText={this.handlePriceChange}
 					placeholder="Price per Share ($)"
 					selectionColor={grayDark}
-		        	style={[fonts.h2, forms.textInput, forms.textInputIOS, styles.textInput]}
-			        value={pps}
+		        	style={[fonts.h2, forms.textInput, styles.textInput, forms.inputIOS]}
 		        />
 		        :
 				<TextInput
@@ -37,8 +34,7 @@ class PricePerShare extends Component {
 			        onChangeText={this.handlePriceChange}
 					placeholder="Price per Share"
 					selectionColor={grayDark}
-		        	style={[fonts.h2, forms.textInput, styles.textInput]}
-			        value={pps}
+		        	style={[fonts.h2, forms.textInput, styles.textInput, forms.inputAndroid]}
 		        />
 		    }
 		    </View>

@@ -13,8 +13,6 @@ class NumShares extends Component {
 		const { onNumChange } = this.props
 
 		onNumChange(num)
-
-		this.setState({num})
 	}
 
 	render() {
@@ -28,8 +26,7 @@ class NumShares extends Component {
 			        onChangeText={this.handleNumChange}
 					placeholder="Number of Shares"
 					selectionColor={grayDark}
-		        	style={[fonts.h2, forms.textInput, forms.textInputIOS]}
-			        value={numShares}
+		        	style={[fonts.h2, forms.textInput, forms.inputIOS]}
 		        />
 		        :
 		        <TextInput
@@ -37,8 +34,7 @@ class NumShares extends Component {
 			        onChangeText={this.handleNumChange}
 					placeholder="Number of Shares"
 					selectionColor={grayDark}
-		        	style={[fonts.h2, forms.textInput]}
-			        value={numShares}
+		        	style={[fonts.h2, forms.textInput, forms.inputAndroid]}
 		        />
 		     }
 		    </View>

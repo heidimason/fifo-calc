@@ -23,7 +23,7 @@ class DPiOS extends Component {
         const { chosenDate } = this.state
 
         return (
-            <View style={[styles.container, forms.textInputIOS]}>
+            <View style={[styles.container, forms.inputIOS]}>
                 <DatePickerIOS
                     date={chosenDate}
                     mode="date"
