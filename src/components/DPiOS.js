@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { DatePickerIOS, StyleSheet, View } from 'react-native'
+import { DatePickerIOS, StyleSheet, Text, View } from 'react-native'
 import { grayDark, white } from '../utils/styles/colors'
 import { fonts } from '../utils/styles/fonts'
 import { forms } from '../utils/styles/forms'
@@ -24,6 +24,8 @@ class DPiOS extends Component {
 
         return (
             <View style={[styles.container, forms.inputIOS]}>
+                <Text style={[fonts.h2, styles.text]}>Select Date</Text>
+
                 <DatePickerIOS
                     date={chosenDate}
                     mode="date"
@@ -38,6 +40,10 @@ const styles = StyleSheet.create({
 	container: {
         backgroundColor: white,
         marginHorizontal: 40
+    },
+    text: {
+        color: white,
+        top: -40
     }
 })
 
