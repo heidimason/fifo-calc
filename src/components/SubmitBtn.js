@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, Platform, StyleSheet } from 'react-native'
 import { orange, white } from '../utils/styles/colors'
 import { fonts } from '../utils/styles/fonts'
 
-function SubmitBtn ({ children, onPress, style = {} }) {
+const SubmitBtn = ({ children, onPress, style = {} }) => {
   	return (
     	<TouchableOpacity
         	style={[
@@ -23,20 +23,18 @@ function SubmitBtn ({ children, onPress, style = {} }) {
 const styles = StyleSheet.create({
     submitBtnIOS: {
         borderRadius: 7,
-        height: 45,
         marginHorizontal: 40,
         paddingVertical: 6
     },
     submitBtnAndroid: {
+        alignSelf: 'center',
         borderRadius: 2,
-        height: 45,
-        marginRight: 15,
         paddingVertical: 6,
-        alignSelf: 'flex-end',
-        width: '65%'
+        width: '80%'
     },
     submitBtn: {
-        backgroundColor: orange
+        backgroundColor: orange,
+        height: 45
     },
     submitBtnText: {
         color: white,

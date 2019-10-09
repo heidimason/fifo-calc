@@ -98,7 +98,14 @@ class FifoCalculator extends Component {
                         <Text style={{color: 'white'}}>{purchaseDate.toString()}</Text>
                     </View>
                     :
-                    <DPAndroid />
+                    <View>
+                        <DPAndroid
+                            onDPChange={date => {
+                                this.changeDate(date)
+                            }}
+                        />
+                        <Text style={{color: 'white'}}>{purchaseDate.toString()}</Text>
+                    </View>
                 }
 
                 <View>
@@ -123,9 +130,11 @@ class FifoCalculator extends Component {
                     onPress={this.calculateProfit}
                 />
 
-                <Text
-                    style={[fonts.h2, styles.text]}>Profit: {profit}
-                </Text>
+                <TextContainer>
+                    <Text
+                        style={[fonts.h2, styles.text, styles.profit]}>Profit: {profit}
+                    </Text>
+                </TextContainer>
             </View>
         )
     }
@@ -152,7 +161,9 @@ const styles = StyleSheet.create({
         marginHorizontal: 40
     },
     profit: {
-        marginBottom: 20
+        letterSpacing: 1,
+        marginBottom: 20,
+        textTransform: 'uppercase'
     }
 })
 
