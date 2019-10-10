@@ -6,10 +6,6 @@ import { forms } from '../utils/styles/forms'
 import styled from 'styled-components/native'
 
 class NumShares extends Component {
-	state = {
-		numShares: null
-	}
-
 	handleNumChange = num => {
 		const { onNumChange } = this.props
 
@@ -17,8 +13,6 @@ class NumShares extends Component {
 	}
 
 	render() {
-		const { numShares } = this.state
-
 		return (
 			<NumSharesInput
 		        keyboardType="numeric"

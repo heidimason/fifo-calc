@@ -5,10 +5,6 @@ import { fonts } from '../utils/styles/fonts'
 import { forms } from '../utils/styles/forms'
 
 class SharePrice extends Component {
-	state = {
-		sharePrice: null
-	}
-
 	handlePriceChange = price => {
 		const { onPriceChange } = this.props
 
@@ -16,8 +12,6 @@ class SharePrice extends Component {
 	}
 
 	render() {
-		const { sharePrice } = this.state
-
 		return (
 			<TextInput
 		        keyboardType="numeric"
