@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Platform, StyleSheet, TextInput, View } from 'react-native'
+import { Platform, TextInput, View } from 'react-native'
 import { grayDark } from '../utils/styles/colors'
 import { fonts } from '../utils/styles/fonts'
 import { forms } from '../utils/styles/forms'
+import styled from 'styled-components/native'
 
 class NumShares extends Component {
 	state = {
@@ -19,7 +20,7 @@ class NumShares extends Component {
 		const { numShares } = this.state
 
 		return (
-			<TextInput
+			<NumSharesInput
 		        keyboardType="numeric"
 		        onChangeText={this.handleNumChange}
 				placeholder="Number of Shares"
@@ -28,17 +29,15 @@ class NumShares extends Component {
 	        		Platform.OS === 'ios'
 	        		? forms.inputIOS
 	        		: forms.inputAndroid,
-					[fonts.h2, forms.textInput, styles.textInput]
+					[fonts.h2, forms.textInput]
 				]}
 	        />
 		)
 	}
 }
 
-const styles = StyleSheet.create({
-    textInput: {
-        marginBottom: 15
-    }
-})
+const NumSharesInput = styled.TextInput`
+    margin-bottom: 15
+`
 
 export default NumShares
