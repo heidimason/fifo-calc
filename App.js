@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { Alert, Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
 import SharePrice from './src/components/SharePrice'
 import NumShares from './src/components/NumShares'
 import DPAndroid from './src/components/DPAndroid'
 import DPiOS from './src/components/DPiOS'
 import SubmitBtn from './src/components/SubmitBtn'
 import { getFifoVal } from './src/utils/helpers'
-import { grayDark, white } from './src/utils/styles/colors'
+import { blue, grayDark, orange, white } from './src/utils/styles/colors'
+import { btns } from './src/utils/styles/btns'
 import { fonts } from './src/utils/styles/fonts'
 import styled from 'styled-components/native'
 
@@ -80,11 +81,21 @@ class FifoCalculator extends Component {
 
               saleShares = saleShareNum
 
-        if (fifoPurchase >= saleShares) {
+        if (fifoPurchase > saleShares) {
             this.setState({
                 profit: (saleSharePrice * saleShareNum) - (purchaseSharePrice * purchaseShareNum),
                 purchaseShareNum: purchaseShareNum - saleShareNum
             })
+        }
+
+        if (fifoPurchase === saleShares) {
+            // fifoItem = Object.values(purchases)
+            Alert.alert(0)
+        }
+
+        if (fifoPurchase < saleShares) {
+            Alert.alert('Number of sale shares should not exceed purchase shares!')
+            // Alert.alert(typeof fifoPurchase, typeof saleShares)
         }
     }
 
@@ -140,7 +151,13 @@ class FifoCalculator extends Component {
 
                 <SubmitBtn
                     onPress={this.submitPurchase}
-                    children="Submit Purchase"
+                    children="Submit"
+                    style={[
+                        Platform.OS === 'ios'
+                        ? btns.btnIOS
+                        : btns.btnAndroid,
+                        [btns.btn, styles.submitBtnPurchase]
+                    ]}
                 />
 
                 <Text style={{color: 'white'}}>{JSON.stringify(purchases)}</Text>
@@ -166,6 +183,12 @@ class FifoCalculator extends Component {
                 <SubmitBtn
                     onPress={this.calculateProfit}
                     children="Calculate"
+                    style={[
+                        Platform.OS === 'ios'
+                        ? btns.btnIOS
+                        : btns.btnAndroid,
+                        [btns.btn, styles.submitBtnCalculate]
+                    ]}
                 />
 
                 <TextContainer>
@@ -202,6 +225,12 @@ const styles = StyleSheet.create({
     text: {
         color: white,
         marginHorizontal: 40
+    },
+    submitBtnPurchase: {
+        backgroundColor: blue
+    },
+    submitBtnCalculate: {
+        backgroundColor: orange
     }
 })
 
