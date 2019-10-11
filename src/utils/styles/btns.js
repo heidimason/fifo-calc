@@ -5,6 +5,12 @@ export const btns = StyleSheet.create({
     btn: {
         height: 45
     },
+    btnInvalid: {
+        opacity: 0.3
+    },
+    btnValid: {
+        opacity: 1
+    },
     btnIOS: {
         borderRadius: 7,
         marginHorizontal: 40,

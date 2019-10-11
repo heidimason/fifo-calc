@@ -22,15 +22,15 @@ class FifoCalculator extends Component {
         saleSharePrice: ''
     }
 
-    changePurchasePrice = pricePerShare => {
-        this.setState({
-            purchaseSharePrice: pricePerShare
-        })
-    }
-
     changePurchaseShares = numberOfShares => {
         this.setState({
             purchaseShareNum: numberOfShares
+        })
+    }
+
+    changePurchasePrice = pricePerShare => {
+        this.setState({
+            purchaseSharePrice: pricePerShare
         })
     }
 
@@ -54,15 +54,15 @@ class FifoCalculator extends Component {
         })
     }
 
-    changeSalePrice = pricePerShare => {
-        this.setState({
-            saleSharePrice: pricePerShare
-        })
-    }
-
     changeSaleShares = numberOfShares => {
         this.setState({
             saleShareNum: numberOfShares
+        })
+    }
+
+    changeSalePrice = pricePerShare => {
+        this.setState({
+            saleSharePrice: pricePerShare
         })
     }
 
@@ -99,7 +99,7 @@ class FifoCalculator extends Component {
 
         const {
             profit,
-            purchaseDate,
+            // purchaseDate,
             purchases,
             purchaseShareNum,
             purchaseSharePrice,
@@ -108,7 +108,7 @@ class FifoCalculator extends Component {
         } = this.state
 
         return (
-            <View style={styles.viewContainer}>
+            <AppContainer>
                 <TextContainer>
                     <H1
                         style={[fonts.h1, styles.text]}>FIFO Profit Calculator
@@ -126,6 +126,11 @@ class FifoCalculator extends Component {
                         }}
                         shareNum={purchaseShareNum}
                     />
+
+                    { purchaseShareNum !== '' && purchaseShareNum <= 0
+                        ? <ErrorText style={fonts.h3}>Please enter a positive number!</ErrorText>
+                        : null
+                    }
 
                     <PriceOfShares
                         onPriceChange={purchasePrice => {
@@ -155,12 +160,16 @@ class FifoCalculator extends Component {
                 */ }
 
                 <SubmitBtn
-                    onPress={this.submitPurchase}
                     children="Submit"
+                    disabled={purchaseShareNum === '' || purchaseSharePrice === ''}
+                    onPress={this.submitPurchase}
                     style={[
                         Platform.OS === 'ios'
                         ? btns.btnIOS
                         : btns.btnAndroid,
+                        purchaseShareNum === '' || purchaseSharePrice === ''
+                        ? btns.btnInvalid
+                        : btns.btnValid,
                         [btns.btn, styles.submitBtnPurchase]
                     ]}
                 />
@@ -188,12 +197,19 @@ class FifoCalculator extends Component {
                 </View>
 
                 <SubmitBtn
-                    onPress={this.calculateProfit}
                     children="Calculate"
+                    disabled={
+                        purchaseShareNum === '' || purchaseSharePrice === '' ||
+                        saleShareNum === '' || saleSharePrice === ''
+                    }
+                    onPress={this.calculateProfit}
                     style={[
                         Platform.OS === 'ios'
                         ? btns.btnIOS
                         : btns.btnAndroid,
+                        saleShareNum === '' || saleSharePrice === ''
+                        ? btns.btnInvalid
+                        : btns.btnValid,
                         [btns.btn, styles.submitBtnCalculate]
                     ]}
                 />
@@ -203,16 +219,26 @@ class FifoCalculator extends Component {
                         style={[fonts.h2, styles.text]}>Profit: {profit}
                     </ProfitText>
                 </TextContainer>
-            </View>
+            </AppContainer>
         )
     }
 }
 
-const TextContainer = styled.View`
+const AppContainer = styled.View`
+        background-color: ${grayDark}
+        flex: 1
+        justifyContent: space-around
+    `,
+    TextContainer = styled.View`
         align-items: center
     `,
     H1 = styled.Text`
         margin-top: 20
+    `,
+    ErrorText = styled.Text`
+        color: ${orange}
+        text-align: center
+        margin-bottom: 15
     `,
     ProfitText = styled.Text`
         letter-spacing: 1
@@ -221,11 +247,6 @@ const TextContainer = styled.View`
     `
 
 const styles = StyleSheet.create({
-    viewContainer: {
-        backgroundColor: grayDark,
-        flex: 1,
-        justifyContent: 'space-around'
-    },
     h2: {
         marginBottom: 10
     },

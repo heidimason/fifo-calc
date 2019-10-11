@@ -3,11 +3,12 @@ import { Text, TouchableOpacity } from 'react-native'
 import { btns } from '../utils/styles/btns'
 import { fonts } from '../utils/styles/fonts'
 
-const SubmitBtn = ({ children, onPress, style = {} }) => {
+const SubmitBtn = ({ children, disabled, onPress, style = {} }) => {
   	return (
     	<TouchableOpacity
-        	style={style}
-        	onPress={onPress}>
+    		disabled={disabled}
+        	onPress={onPress}
+        	style={style}>
         	<Text
                 style={[btns.btnText, fonts.h2]}>{children}
             </Text>

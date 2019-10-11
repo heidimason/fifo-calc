@@ -25,6 +25,9 @@ class NumShares extends Component {
 	        		Platform.OS === 'ios'
 	        		? forms.inputIOS
 	        		: forms.inputAndroid,
+	        		shareNum !== '' && shareNum <= 0
+	        		? forms.textInputError
+	        		: forms.textInputValid,
 					[fonts.h2, forms.textInput]
 				]}
 				value={shareNum.toString()}

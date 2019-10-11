@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { grayLight, grayXLight, white } from './colors'
+import { grayLight, grayXLight, orange, white } from './colors'
 
 export const forms = StyleSheet.create({
     inputAndroid: {
@@ -15,5 +15,13 @@ export const forms = StyleSheet.create({
         marginHorizontal: 40,
         padding: 10,
         textAlign: 'center'
+    },
+    textInputError: {
+        borderColor: orange,
+        borderWidth: 3
+    },
+    textInputValid: {
+        borderColor: 'transparent',
+        borderWidth: 0
     }
 })
