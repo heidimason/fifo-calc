@@ -1,11 +1,11 @@
-export const getFifoVal = str => {
-	let fifoVal = ''
+export const getFifoStr = str => {
+	let fifoStr = ''
 
 	for (let i = 0, strLength = str.length; i < strLength; i++) {
-		fifoVal += str[i]
+		fifoStr += str[i]
 
 		if (str[i + 1] === ',') {
-			return parseInt(fifoVal)
+			return fifoStr
 		}
 	}
 

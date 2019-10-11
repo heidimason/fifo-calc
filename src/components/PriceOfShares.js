@@ -4,7 +4,7 @@ import { grayDark } from '../utils/styles/colors'
 import { fonts } from '../utils/styles/fonts'
 import { forms } from '../utils/styles/forms'
 
-class SharePrice extends Component {
+class PriceOfShares extends Component {
 	handlePriceChange = price => {
 		const { onPriceChange } = this.props
 
@@ -12,6 +12,8 @@ class SharePrice extends Component {
 	}
 
 	render() {
+		const { sharePrice } = this.props
+
 		return (
 			<TextInput
 		        keyboardType="numeric"
@@ -24,9 +26,10 @@ class SharePrice extends Component {
 	        		: forms.inputAndroid,
 					[fonts.h2, forms.textInput]
 				]}
+				value={sharePrice}
 	        />
 		)
 	}
 }
 
-export default SharePrice
+export default PriceOfShares

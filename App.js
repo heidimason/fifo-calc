@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Alert, Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
-import SharePrice from './src/components/SharePrice'
 import NumShares from './src/components/NumShares'
+import PriceOfShares from './src/components/PriceOfShares'
 import DPAndroid from './src/components/DPAndroid'
 import DPiOS from './src/components/DPiOS'
 import SubmitBtn from './src/components/SubmitBtn'
-import { getFifoVal } from './src/utils/helpers'
+import { getFifoStr } from './src/utils/helpers'
 import { blue, grayDark, orange, white } from './src/utils/styles/colors'
 import { btns } from './src/utils/styles/btns'
 import { fonts } from './src/utils/styles/fonts'
@@ -16,10 +16,10 @@ class FifoCalculator extends Component {
         profit: 0,
         // purchaseDate: new Date(),
         purchases: [],
-        purchaseShareNum: 0,
-        purchaseSharePrice: 0,
-        saleShareNum: 0,
-        saleSharePrice: 0
+        purchaseShareNum: '',
+        purchaseSharePrice: '',
+        saleShareNum: '',
+        saleSharePrice: ''
     }
 
     changePurchasePrice = pricePerShare => {
@@ -77,7 +77,7 @@ class FifoCalculator extends Component {
 
         const fifoItem = Object.values(purchases[0]).toString(),
 
-              fifoPurchase = getFifoVal(fifoItem),
+              fifoPurchase = getFifoStr(fifoItem),
 
               saleShares = saleShareNum
 
@@ -86,23 +86,26 @@ class FifoCalculator extends Component {
                 profit: (saleSharePrice * saleShareNum) - (purchaseSharePrice * purchaseShareNum),
                 purchaseShareNum: purchaseShareNum - saleShareNum
             })
-        }
-
-        if (fifoPurchase === saleShares) {
+        } else if (fifoPurchase === saleShares) {
             // fifoItem = Object.values(purchases)
-            Alert.alert(0)
-        }
-
-        if (fifoPurchase < saleShares) {
+            Alert.alert('do something!')
+        } else {
             Alert.alert('Number of sale shares should not exceed purchase shares!')
-            // Alert.alert(typeof fifoPurchase, typeof saleShares)
         }
     }
 
     render () {
         StatusBar.setBarStyle('light-content', true)
 
-        const { profit, purchaseDate, purchases } = this.state
+        const {
+            profit,
+            purchaseDate,
+            purchases,
+            purchaseShareNum,
+            purchaseSharePrice,
+            saleShareNum,
+            saleSharePrice
+        } = this.state
 
         return (
             <View style={styles.viewContainer}>
@@ -121,12 +124,14 @@ class FifoCalculator extends Component {
                         onNumChange={purchaseNum => {
                             this.changePurchaseShares(purchaseNum)
                         }}
+                        shareNum={purchaseShareNum}
                     />
 
-                    <SharePrice
+                    <PriceOfShares
                         onPriceChange={purchasePrice => {
                             this.changePurchasePrice(purchasePrice)
                         }}
+                        sharePrice={purchaseSharePrice}
                     />
                 </View>
 
@@ -171,12 +176,14 @@ class FifoCalculator extends Component {
                         onNumChange={saleNum => {
                             this.changeSaleShares(saleNum)
                         }}
+                        shareNum={saleShareNum}
                     />
 
-                    <SharePrice
+                    <PriceOfShares
                         onPriceChange={salePrice => {
                             this.changeSalePrice(salePrice)
                         }}
+                        sharePrice={saleSharePrice}
                     />
                 </View>
 

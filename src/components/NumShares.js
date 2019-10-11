@@ -13,6 +13,8 @@ class NumShares extends Component {
 	}
 
 	render() {
+		const { shareNum } = this.props
+
 		return (
 			<NumSharesInput
 		        keyboardType="numeric"
@@ -25,6 +27,7 @@ class NumShares extends Component {
 	        		: forms.inputAndroid,
 					[fonts.h2, forms.textInput]
 				]}
+				value={shareNum.toString()}
 	        />
 		)
 	}
