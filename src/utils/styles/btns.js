@@ -11,16 +11,16 @@ export const btns = StyleSheet.create({
     btnValid: {
         opacity: 1
     },
-    btnIOS: {
-        borderRadius: 7,
-        marginHorizontal: 40,
-        paddingVertical: 6
-    },
     btnAndroid: {
         alignSelf: 'center',
         borderRadius: 2,
         paddingVertical: 6,
         width: '80%'
+    },
+    btnIOS: {
+        borderRadius: 7,
+        marginHorizontal: 40,
+        paddingVertical: 6
     },
     btnText: {
         color: white,

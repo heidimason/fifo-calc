@@ -44,15 +44,17 @@ class FifoCalculator extends Component {
     submitPurchase = () => {
         const { purchaseDate, purchases, purchaseShareNum, purchaseSharePrice } = this.state
 
+        const purchase = {
+            // date: formatDateStr(purchaseDate),
+            num: purchaseShareNum,
+            price: purchaseSharePrice
+        }
+
         this.setState({
-            purchases: purchases.concat([
-                {
-                    // date: formatDateStr(purchaseDate),
-                    num: purchaseShareNum,
-                    price: purchaseSharePrice
-                }
-            ])
+            purchases: [...purchases, purchase]
         })
+
+        // Alert.alert(JSON.stringify(purchases))
     }
 
     changeSaleShares = numberOfShares => {
@@ -76,7 +78,9 @@ class FifoCalculator extends Component {
             saleSharePrice
         } = this.state
 
-        const fifoItem = Object.values(purchases[0]).toString(),
+        let index = 0
+
+        let fifoItem = Object.values(purchases[index]).toString(),
 
               fifoPurchase = getFifoStr(fifoItem),
 
@@ -89,11 +93,16 @@ class FifoCalculator extends Component {
             })
         } else if (fifoPurchase === saleShares) {
             this.setState({
-                purchases: purchases.shift()
+                profit: (saleSharePrice * saleShareNum) - (purchaseSharePrice * purchaseShareNum),
+                purchaseShareNum: purchaseShareNum - saleShareNum,
+                purchases: purchases.slice(1)
             })
-        } else {
-            Alert.alert('Number of sale shares should not exceed purchase shares!')
+
+            // Alert.alert(purchases)
         }
+        // else {
+        //     Alert.alert('Number of sale shares should not exceed purchase shares!')
+        // }
     }
 
     render () {
