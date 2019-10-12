@@ -82,17 +82,15 @@ class FifoCalculator extends Component {
 
               saleShares = saleShareNum
 
-        if (fifoPurchase >= saleShares) {
+        if (fifoPurchase > saleShares) {
             this.setState({
                 profit: (saleSharePrice * saleShareNum) - (purchaseSharePrice * purchaseShareNum),
                 purchaseShareNum: purchaseShareNum - saleShareNum
             })
-
-            // if (purchaseShareNum === 0) {
-            //     this.setState({
-            //         purchases: purchases.shift()
-            //     })
-            // }
+        } else if (fifoPurchase === saleShares) {
+            this.setState({
+                purchases: purchases.shift()
+            })
         } else {
             Alert.alert('Number of sale shares should not exceed purchase shares!')
         }
@@ -222,6 +220,7 @@ class FifoCalculator extends Component {
                 <SubmitBtn
                     children="Calculate"
                     disabled={
+                        !purchases.length ||
                         saleShareNum === '' || saleSharePrice === '' ||
                         !isValidInt(saleShareNum) || !isValidInt(saleSharePrice)
                     }
@@ -230,6 +229,7 @@ class FifoCalculator extends Component {
                         Platform.OS === 'ios'
                         ? btns.btnIOS
                         : btns.btnAndroid,
+                        !purchases.length ||
                         saleShareNum === '' || saleSharePrice === '' ||
                         !isValidInt(saleShareNum) || !isValidInt(saleSharePrice)
                         ? btns.btnInvalid
