@@ -3,6 +3,7 @@ import { Platform, TextInput, View } from 'react-native'
 import { grayDark } from '../utils/styles/colors'
 import { fonts } from '../utils/styles/fonts'
 import { forms } from '../utils/styles/forms'
+import styled from 'styled-components/native'
 
 const PriceOfShares = props => {
 	const { sharePrice } = props
@@ -14,10 +15,10 @@ const PriceOfShares = props => {
 	}
 
 	return (
-		<TextInput
+		<PriceOfSharesInput
 	        keyboardType="numeric"
 			onChangeText={this.handlePriceChange}
-			placeholder="Price per Share ($)"
+			placeholder="Price per Share"
 			selectionColor={grayDark}
         	style={[
         		Platform.OS === 'ios'
@@ -32,5 +33,9 @@ const PriceOfShares = props => {
         />
 	)
 }
+
+const PriceOfSharesInput = styled.TextInput`
+    margin-bottom: 15
+`
 
 export default PriceOfShares

@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { Alert, Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
 import NumShares from './src/components/NumShares'
 import PriceOfShares from './src/components/PriceOfShares'
+import TextInputError from './src/components/TextInputError'
 import DPAndroid from './src/components/DPAndroid'
 import DPiOS from './src/components/DPiOS'
 import SubmitBtn from './src/components/SubmitBtn'
-import { getFifoStr } from './src/utils/helpers'
+import { getFifoStr, isValidInt } from './src/utils/helpers'
 import { blue, grayDark, orange, white } from './src/utils/styles/colors'
 import { btns } from './src/utils/styles/btns'
 import { fonts } from './src/utils/styles/fonts'
@@ -81,14 +82,17 @@ class FifoCalculator extends Component {
 
               saleShares = saleShareNum
 
-        if (fifoPurchase > saleShares) {
+        if (fifoPurchase >= saleShares) {
             this.setState({
                 profit: (saleSharePrice * saleShareNum) - (purchaseSharePrice * purchaseShareNum),
                 purchaseShareNum: purchaseShareNum - saleShareNum
             })
-        } else if (fifoPurchase === saleShares) {
-            // fifoItem = Object.values(purchases)
-            Alert.alert('do something!')
+
+            // if (purchaseShareNum === 0) {
+            //     this.setState({
+            //         purchases: purchases.shift()
+            //     })
+            // }
         } else {
             Alert.alert('Number of sale shares should not exceed purchase shares!')
         }
@@ -127,8 +131,8 @@ class FifoCalculator extends Component {
                         shareNum={purchaseShareNum}
                     />
 
-                    { purchaseShareNum !== '' && purchaseShareNum <= 0
-                        ? <ErrorText style={fonts.h3}>Please enter a positive number!</ErrorText>
+                    { purchaseShareNum !== '' && purchaseShareNum <= 0 || !isValidInt(purchaseShareNum)
+                        ? <TextInputError />
                         : null
                     }
 
@@ -138,6 +142,11 @@ class FifoCalculator extends Component {
                         }}
                         sharePrice={purchaseSharePrice}
                     />
+
+                    { purchaseSharePrice !== '' && purchaseSharePrice <= 0 || !isValidInt(purchaseSharePrice)
+                        ? <TextInputError />
+                        : null
+                    }
                 </View>
 
                 { /* Platform.OS === 'ios' ?
@@ -161,13 +170,17 @@ class FifoCalculator extends Component {
 
                 <SubmitBtn
                     children="Submit"
-                    disabled={purchaseShareNum === '' || purchaseSharePrice === ''}
+                    disabled={
+                        purchaseShareNum === '' || purchaseSharePrice === '' ||
+                        !isValidInt(purchaseShareNum) || !isValidInt(purchaseSharePrice)
+                    }
                     onPress={this.submitPurchase}
                     style={[
                         Platform.OS === 'ios'
                         ? btns.btnIOS
                         : btns.btnAndroid,
-                        purchaseShareNum === '' || purchaseSharePrice === ''
+                        purchaseShareNum === '' || purchaseSharePrice === '' ||
+                        !isValidInt(purchaseShareNum) || !isValidInt(purchaseSharePrice)
                         ? btns.btnInvalid
                         : btns.btnValid,
                         [btns.btn, styles.submitBtnPurchase]
@@ -188,26 +201,37 @@ class FifoCalculator extends Component {
                         shareNum={saleShareNum}
                     />
 
+                    { saleShareNum !== '' && saleShareNum <= 0 || !isValidInt(saleShareNum)
+                        ? <TextInputError />
+                        : null
+                    }
+
                     <PriceOfShares
                         onPriceChange={salePrice => {
                             this.changeSalePrice(salePrice)
                         }}
                         sharePrice={saleSharePrice}
                     />
+
+                    { saleSharePrice !== '' && saleSharePrice <= 0 || !isValidInt(saleSharePrice)
+                        ? <TextInputError />
+                        : null
+                    }
                 </View>
 
                 <SubmitBtn
                     children="Calculate"
                     disabled={
-                        purchaseShareNum === '' || purchaseSharePrice === '' ||
-                        saleShareNum === '' || saleSharePrice === ''
+                        saleShareNum === '' || saleSharePrice === '' ||
+                        !isValidInt(saleShareNum) || !isValidInt(saleSharePrice)
                     }
                     onPress={this.calculateProfit}
                     style={[
                         Platform.OS === 'ios'
                         ? btns.btnIOS
                         : btns.btnAndroid,
-                        saleShareNum === '' || saleSharePrice === ''
+                        saleShareNum === '' || saleSharePrice === '' ||
+                        !isValidInt(saleShareNum) || !isValidInt(saleSharePrice)
                         ? btns.btnInvalid
                         : btns.btnValid,
                         [btns.btn, styles.submitBtnCalculate]
@@ -233,16 +257,11 @@ const AppContainer = styled.View`
         align-items: center
     `,
     H1 = styled.Text`
-        margin-top: 20
-    `,
-    ErrorText = styled.Text`
-        color: ${orange}
-        text-align: center
-        margin-bottom: 15
+        margin-top: 30
     `,
     ProfitText = styled.Text`
         letter-spacing: 1
-        margin-bottom: 20
+        margin-bottom: 30
         text-transform: uppercase
     `
 
