@@ -12,6 +12,7 @@ import styled from 'styled-components/native'
 
 class FifoCalculator extends Component {
     state = {
+        isValidSaleShareNum: true,
         profit: 0,
         purchases: [],
         purchaseShareNum: '',
@@ -47,6 +48,7 @@ class FifoCalculator extends Component {
 
     changeSaleShares = numberOfShares => {
         this.setState({
+            isValidSaleShareNum: true,
             saleShareNum: numberOfShares
         })
     }
@@ -92,6 +94,14 @@ class FifoCalculator extends Component {
                     })
                 }
             })
+        } else {
+        	if (purchases.length > 1) {
+        		console.log('do something')
+        	} else {
+	        	this.setState({
+		        	isValidSaleShareNum: false
+	        	})
+        	}
         }
 
         // else {
@@ -103,6 +113,7 @@ class FifoCalculator extends Component {
         StatusBar.setBarStyle('light-content', true)
 
         const {
+            isValidSaleShareNum,
             profit,
             purchases,
             purchaseShareNum,
@@ -184,6 +195,11 @@ class FifoCalculator extends Component {
 
                     { saleShareNum !== '' && saleShareNum === '0' || !isValidChar(saleShareNum)
                         ? <TextInputError text="Please enter a positive number only!" />
+                        : null
+                    }
+
+                    { !isValidSaleShareNum
+                        ? <TextInputError text="Number of sale shares must not exceed number of purchase shares!" />
                         : null
                     }
 
