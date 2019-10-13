@@ -43,8 +43,6 @@ class FifoCalculator extends Component {
         this.setState({
             purchases: [...purchases, purchase]
         })
-
-        // console.log(purchases)
     }
 
     changeSaleShares = numberOfShares => {
@@ -78,28 +76,16 @@ class FifoCalculator extends Component {
         if ( fifoItem.num >= saleShareNumInt ) {
             Promise.resolve(
                 this.setState({
-                    profit: (saleShareNumInt * saleSharePriceInt) - (purchaseShareNumInt * purchaseSharePriceInt),
+                    profit: (saleShareNumInt * saleSharePriceInt) - (fifoItem.num * fifoItem.price),
                     purchaseShareNum: '',
                     purchaseSharePrice: ''
                 })
             )
             .then ( () => {
-                // if (purchaseShareNumInt - saleShareNumInt >= 0) {
-                    fifoItem.num = purchaseShareNumInt - saleShareNumInt
-                // } else {
-                    // fifoItem.num = 0
-                // }
-
-                const purchase = {
-                    num: fifoItem.num,
-                    price: fifoItem.price
-                }
-
-                this.setState({
-                    purchases: [...purchases, purchase]
-                })
+                fifoItem.num = fifoItem.num - saleShareNumInt
 
                 // console.log(fifoItem.num)
+
                 if (fifoItem.num === 0) {
                     this.setState({
                         purchases: purchases.slice(1)
