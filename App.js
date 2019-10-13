@@ -132,7 +132,7 @@ class FifoCalculator extends Component {
                     />
 
                     { purchaseShareNum !== '' && purchaseShareNum === '0' || !isValidChar(purchaseShareNum)
-                        ? <TextInputError />
+                        ? <TextInputError text="Please enter a positive number only!" />
                         : null
                     }
 
@@ -144,7 +144,7 @@ class FifoCalculator extends Component {
                     />
 
                     { purchaseSharePrice !== '' && purchaseSharePrice === '0' || !isValidChar(purchaseSharePrice)
-                        ? <TextInputError />
+                        ? <TextInputError text="Please enter a positive number only!" />
                         : null
                     }
                 </View>
@@ -183,7 +183,7 @@ class FifoCalculator extends Component {
                     />
 
                     { saleShareNum !== '' && saleShareNum === '0' || !isValidChar(saleShareNum)
-                        ? <TextInputError />
+                        ? <TextInputError text="Please enter a positive number only!" />
                         : null
                     }
 
@@ -195,7 +195,7 @@ class FifoCalculator extends Component {
                     />
 
                     { saleSharePrice !== '' && saleSharePrice === '0' || !isValidChar(saleSharePrice)
-                        ? <TextInputError />
+                        ? <TextInputError text="Please enter a positive number only!" />
                         : null
                     }
                 </View>

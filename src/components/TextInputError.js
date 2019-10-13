@@ -4,10 +4,10 @@ import { orange } from '../utils/styles/colors'
 import { fonts } from '../utils/styles/fonts'
 import styled from 'styled-components/native'
 
-const TextInputError = () => {
+const TextInputError = ({text}) => {
 	return (
 		<ErrorText
-			style={fonts.h3}>Please enter a positive number only!
+			style={fonts.h3}>{text}
 		</ErrorText>
 	)
 }
