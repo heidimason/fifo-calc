@@ -61,6 +61,7 @@ class FifoCalculator extends Component {
 
     calculateProfit = () => {
         const {
+        	profit,
             purchases,
             purchaseShareNum,
             purchaseSharePrice,
@@ -75,10 +76,11 @@ class FifoCalculator extends Component {
 
         let fifoItem = purchases[0]
 
+        // If number of purchase shares from first item in purchase array is greater than or equal to number of sale shares
         if ( fifoItem.num >= saleShareNumInt ) {
             Promise.resolve(
                 this.setState({
-                    profit: (saleShareNumInt * saleSharePriceInt) - (fifoItem.num * fifoItem.price),
+                    profit: profit + (saleShareNumInt * saleSharePriceInt) - (fifoItem.num * fifoItem.price),
                     purchaseShareNum: '',
                     purchaseSharePrice: ''
                 })
@@ -86,7 +88,7 @@ class FifoCalculator extends Component {
             .then ( () => {
                 fifoItem.num = fifoItem.num - saleShareNumInt
 
-                // console.log(fifoItem.num)
+                console.log(fifoItem.num)
 
                 if (fifoItem.num === 0) {
                     this.setState({
@@ -94,19 +96,17 @@ class FifoCalculator extends Component {
                     })
                 }
             })
+        // If number of purchase shares from first item in purchase array is less than sale shares
         } else {
+        	// If there is another item in purchase array
         	if (purchases.length > 1) {
-        		console.log('do something')
+        		console.log(purchases[0])
         	} else {
 	        	this.setState({
 		        	isValidSaleShareNum: false
 	        	})
         	}
         }
-
-        // else {
-        //     Alert.alert('Number of sale shares should not exceed purchase shares!')
-        // }
     }
 
     render () {
