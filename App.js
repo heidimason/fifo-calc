@@ -5,7 +5,7 @@ import PriceOfShares from './src/components/PriceOfShares'
 import TextInputError from './src/components/TextInputError'
 import SubmitBtn from './src/components/SubmitBtn'
 import { isValidChar } from './src/utils/helpers'
-import { blue, grayDark, orange, white } from './src/utils/styles/colors'
+import { blue, grayDark, orange, red, white } from './src/utils/styles/colors'
 import { btns } from './src/utils/styles/btns'
 import { fonts } from './src/utils/styles/fonts'
 import styled from 'styled-components/native'
@@ -74,27 +74,25 @@ class FifoCalculator extends Component {
                   saleShareNumInt = parseInt(saleShareNum),
                 saleSharePriceInt = parseInt(saleSharePrice)
 
-        let fifoItem = purchases[0]
+        let firstItem = purchases[0]
 
         // If number of purchase shares from first item in purchases array is greater than or equal to number of sale shares
-        if (fifoItem.num >= saleShareNumInt) {
+        if (firstItem.num >= saleShareNumInt) {
             Promise.resolve(
                 this.setState({
-                    profit: profit + (saleShareNumInt * saleSharePriceInt) - (saleShareNumInt * fifoItem.price),
-                    purchaseShareNum: '',
-                    purchaseSharePrice: ''
+                    profit: profit + (saleShareNumInt * saleSharePriceInt) - (saleShareNumInt * firstItem.price)
                 }),
 
-                fifoItem.num -= saleShareNumInt
+                firstItem.num -= saleShareNumInt
             )
             .then ( () => {
-                if (fifoItem.num === 0) {
+                if (firstItem.num === 0) {
                     this.setState({
                         purchases: purchases.slice(1)
                     })
                 }
 
-                fifoItem = purchases[0]
+                firstItem = purchases[0]
             })
         // Number of purchase shares from first item in purchases array is less than number of sale shares
         } else {
@@ -107,6 +105,18 @@ class FifoCalculator extends Component {
 	        	})
         	}
         }
+    }
+
+    resetAll = () => {
+    	this.setState({
+	    	isValidSaleShareNum: true,
+	        profit: 0,
+	        purchases: [],
+	        purchaseShareNum: '',
+	        purchaseSharePrice: '',
+	        saleShareNum: '',
+	        saleSharePrice: ''
+    	})
     }
 
     render () {
@@ -242,6 +252,21 @@ class FifoCalculator extends Component {
                         style={[fonts.h2, styles.text]}>Profit: {profit}
                     </ProfitText>
                 </TextContainer>
+
+                <SubmitBtn
+                    children="Reset All"
+                    disabled={!purchases.length}
+                    onPress={this.resetAll}
+                    style={[
+                        Platform.OS === 'ios'
+                        ? btns.btnIOS
+                        : btns.btnAndroid,
+                        !purchases.length
+                        ? btns.btnInvalid
+                        : btns.btnValid,
+                        [btns.btn, styles.submitBtnReset]
+                    ]}
+                />
             </AppContainer>
         )
     }
@@ -277,6 +302,10 @@ const styles = StyleSheet.create({
     },
     submitBtnCalculate: {
         backgroundColor: orange
+    },
+    submitBtnReset: {
+    	backgroundColor: red,
+        marginBottom: 30
     }
 })
 
