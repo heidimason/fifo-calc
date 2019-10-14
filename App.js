@@ -80,7 +80,9 @@ class FifoCalculator extends Component {
         if (firstItem.num >= saleShareNumInt) {
             Promise.resolve(
                 this.setState({
-                    profit: profit + (saleShareNumInt * saleSharePriceInt) - (saleShareNumInt * firstItem.price)
+                    profit: profit +
+                    (saleShareNumInt * saleSharePriceInt) -
+                    (saleShareNumInt * firstItem.price)
                 }),
 
                 firstItem.num -= saleShareNumInt
@@ -98,8 +100,18 @@ class FifoCalculator extends Component {
         } else {
         	// If there is another item in purchase array
         	if (purchases.length > 1) {
+        		let nextItem = purchases[1]
 
+	            if (firstItem.num + nextItem.num >= saleShareNumInt) {
+		            this.setState({
+		            	profit: profit +
+		            	( firstItem.num * (saleSharePriceInt - firstItem.price) ) +
+		            	( (saleShareNumInt - firstItem.num) * (saleSharePriceInt - nextItem.price) ),
+		            	purchases: purchases.slice(1)
+		            })
+	            }
         	} else {
+        		// Display error text
 	        	this.setState({
 		        	isValidSaleShareNum: false
 	        	})
