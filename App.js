@@ -115,6 +115,16 @@ class FifoCalculator extends Component {
 			        firstItem = nextItem
 
 			        console.log(firstItem)
+	            } else {
+					const totalPurchaseNums = purchases.reduce ( (accumulator, currentVal) => {
+						while (accumulator < saleShareNumInt) {
+							accumulator += currentVal.num
+						}
+
+						return accumulator
+					}, 0)
+
+	            	console.log(totalPurchaseNums)
 	            }
         	} else {
         		// Display error text
