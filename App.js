@@ -78,53 +78,51 @@ class FifoCalculator extends Component {
 
         // If number of purchase shares from first item in purchases array is greater than or equal to number of sale shares
         if (firstItem.num >= saleShareNumInt) {
-            // Promise.resolve(
+        	// Calculate profit
+            this.setState({
+                profit: profit +
+                	(saleShareNumInt * saleSharePriceInt) -
+                	(saleShareNumInt * firstItem.price)
+            })
+
+            // Recalculate first number of purchase shares
+            firstItem.num -= saleShareNumInt
+
+            // Slice off first item
+            if (firstItem.num === 0) {
                 this.setState({
-                    profit: profit +
-                    (saleShareNumInt * saleSharePriceInt) -
-                    (saleShareNumInt * firstItem.price)
+                    purchases: purchases.slice(1)
                 })
-
-                firstItem.num -= saleShareNumInt
-            // )
-            // .then ( () => {
-                if (firstItem.num === 0) {
-                    this.setState({
-                        purchases: purchases.slice(1)
-                    })
-                }
-
-                firstItem = purchases[0]
-            // })
+            }
         // Number of purchase shares from first item in purchases array is less than number of sale shares
         } else {
         	// If there is another item in purchase array
         	if (purchases.length > 1) {
-        		let nextItem = purchases[1]
+        		let index = 1,
+        			nextItem = purchases[index]
 
 	            if (firstItem.num + nextItem.num >= saleShareNumInt) {
 		            this.setState({
 		            	profit: profit +
-		            	( firstItem.num * (saleSharePriceInt - firstItem.price) ) +
-		            	( (saleShareNumInt - firstItem.num) * (saleSharePriceInt - nextItem.price) ),
-		            	purchases: purchases.slice(1)
+		            		( firstItem.num * (saleSharePriceInt - firstItem.price) ) +
+		            		( (saleShareNumInt - firstItem.num) * (saleSharePriceInt - nextItem.price) ),
 		            })
 
-			        nextItem.num -= saleShareNumInt - firstItem.num
+					// Recalculate next/future first number of purchase shares
+			        nextItem.num = (firstItem.num + nextItem.num) - saleShareNumInt
 
-			        firstItem = nextItem
-
-			        console.log(firstItem)
+					// Slice off first item
+			        this.setState({
+			        	purchases: purchases.slice(1)
+			        })
 	            } else {
-					const totalPurchaseNums = purchases.reduce ( (accumulator, currentVal) => {
+					let totalPurchaseNums = purchases.reduce ( (accumulator, currentVal) => {
 						while (accumulator < saleShareNumInt) {
 							accumulator += currentVal.num
 						}
 
 						return accumulator
 					}, 0)
-
-	            	console.log(totalPurchaseNums)
 	            }
         	} else {
         		// Display error text
