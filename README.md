@@ -1,5 +1,5 @@
 # FIFO Calculator
-> React Native app which calculates profit based on share purchases and sales
+> React Native app which calculates profit based on share purchases/sales and FIFO accounting method
 
 ## Quickstart
 ```bash
