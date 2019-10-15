@@ -16,4 +16,4 @@ yarn start
 ```
 
 ## Platforms Tested
-iOS and Android (simulators)
+iOS and Android (simulators) in portrait mode
