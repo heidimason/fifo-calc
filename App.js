@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Alert, Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
 import NumShares from './src/components/NumShares'
 import PriceOfShares from './src/components/PriceOfShares'
 import TextInputError from './src/components/TextInputError'
