@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
 import NumShares from './src/components/NumShares'
 import PriceOfShares from './src/components/PriceOfShares'
@@ -10,35 +10,35 @@ import { btns } from './src/utils/styles/btns'
 import { fonts } from './src/utils/styles/fonts'
 import styled from 'styled-components/native'
 
-class FifoCalculator extends Component {
+class FifoCalculator extends PureComponent {
     state = {
-        isValidSaleShareNum: true,
+        isValidSaleNum: true,
         profit: 0,
         purchases: [],
-        purchaseShareNum: '',
-        purchaseSharePrice: '',
-        saleShareNum: '',
-        saleSharePrice: ''
+        purchaseNum: '',
+        purchasePrice: '',
+        saleNum: '',
+        salePrice: ''
     }
 
-    changePurchaseShares = numberOfShares => {
+    changePurchaseShares = numShares => {
         this.setState({
-            purchaseShareNum: numberOfShares
+            purchaseNum: numShares
         })
     }
 
     changePurchasePrice = pricePerShare => {
         this.setState({
-            purchaseSharePrice: pricePerShare
+            purchasePrice: pricePerShare
         })
     }
 
     submitPurchase = () => {
-        const { purchases, purchaseShareNum, purchaseSharePrice } = this.state
+        const { purchases, purchaseNum, purchasePrice } = this.state
 
         const purchase = {
-            num: parseInt(purchaseShareNum),
-            price: parseInt(purchaseSharePrice)
+            num: parseInt(purchaseNum),
+            price: parseInt(purchasePrice)
         }
 
         this.setState({
@@ -46,90 +46,84 @@ class FifoCalculator extends Component {
         })
     }
 
-    changeSaleShares = numberOfShares => {
+    changeSaleShares = numShares => {
         this.setState({
-            isValidSaleShareNum: true,
-            saleShareNum: numberOfShares
+            isValidSaleNum: true,
+            saleNum: numShares
         })
     }
 
     changeSalePrice = pricePerShare => {
         this.setState({
-            saleSharePrice: pricePerShare
+            salePrice: pricePerShare
         })
     }
 
-    calculateProfit = () => {
+    calculateProfit = (purchasesParam, saleNumParam, salePriceParam, profitParam = 0) => {
         const {
         	profit,
             purchases,
-            saleShareNum,
-            saleSharePrice
+            saleNum,
+            salePrice
         } = this.state
 
-        const saleShareNumInt = parseInt(saleShareNum),
-        	saleSharePriceInt = parseInt(saleSharePrice)
+        const salePriceInt = parseInt(salePriceParam),
+          purchasePriceInt = parseInt(purchasesParam[purchasesParam.length - 1].price)
 
-		let firstItem = purchases[0]
+	    let saleNumInt = parseInt(saleNumParam),
+        purchaseNumInt = parseInt(purchasesParam[purchasesParam.length - 1].num)
 
-		if (firstItem.num >= saleShareNumInt) {
-	        this.setState({
-	        	profit: profit + (saleShareNumInt * saleSharePriceInt) - (saleShareNumInt * firstItem.price)
-	        })
+		if (saleNumInt === 0) {
+			this.setState({
+				profit: profitParam,
+				purchases: purchasesParam,
+				saleNum: saleNumParam,
+				salePrice: salePriceParam
+			})
 
-			// Recalculate first number of purchase shares
-	        firstItem.num -= saleShareNumInt
+			return
+		}
 
-            // Slice off first item
-            if (firstItem.num === 0) {
-                this.setState({
-                    purchases: purchases.slice(1)
-                })
-            }
+		if (saleNumInt <= purchaseNumInt) {
+			profitParam += (saleNumInt * salePriceInt) - (saleNumInt * purchasePriceInt)
+
+			purchasesParam[purchasesParam.length - 1].num -= saleNumInt
+
+			saleNumParam -= saleNumInt
+
+			return this.calculateProfit(purchasesParam, saleNumParam, salePriceParam, profitParam)
 		} else {
-        	// Get sum of number of purchase shares
-			let totalPurchaseNums = purchases.reduce ( (accumulator, currentVal) => {
-				accumulator += currentVal.num
+			// Calculate batch by batch
+			if (purchasesParam.length > 1) {
+				profitParam += (purchaseNumInt * salePriceInt) - (purchaseNumInt * purchasePriceInt)
 
-				return accumulator
-			}, 0)
+				purchasesParam[purchasesParam.length - 1].num -= purchaseNumInt
 
-			if (totalPurchaseNums < saleShareNumInt) {
-				// Display error text (i.e. "Number of sale shares must not exceed number of purchase shares!")
-	        	this.setState({
-		        	isValidSaleShareNum: false
-	        	})
-			} else {
-				let originalPurchaseNum = firstItem.num
+				saleNumParam -= purchaseNumInt
 
-		        this.setState({
-		        	profit: profit + ( firstItem.num * (saleSharePriceInt - firstItem.price) ),
-		        	purchases: purchases.slice(1)
-		        })
-
-				if (purchases.length > 1) {
-			        // Reassign first number of purchase shares
-			        firstItem = purchases[1]
-
-			        console.log(firstItem)
+				if (purchasesParam[purchasesParam.length - 1].num === 0) {
+					purchasesParam.length--
 				}
 
-		        firstItem.num += originalPurchaseNum - saleShareNumInt
-
-		        originalPurchaseNum = firstItem.num
+				return this.calculateProfit(purchasesParam, saleNumParam, salePriceParam, profitParam)
+			} else {
+				// Display error text (i.e. "Number of sale shares must not exceed number of purchase shares!")
+	        	this.setState({
+		        	isValidSaleNum: false
+	        	})
 			}
 		}
     }
 
     resetAll = () => {
     	this.setState({
-	    	isValidSaleShareNum: true,
+	    	isValidSaleNum: true,
 	        profit: 0,
 	        purchases: [],
-	        purchaseShareNum: '',
-	        purchaseSharePrice: '',
-	        saleShareNum: '',
-	        saleSharePrice: ''
+	        purchaseNum: '',
+	        purchasePrice: '',
+	        saleNum: '',
+	        salePrice: ''
     	})
     }
 
@@ -137,13 +131,13 @@ class FifoCalculator extends Component {
         StatusBar.setBarStyle('light-content', true)
 
         const {
-            isValidSaleShareNum,
+            isValidSaleNum,
             profit,
             purchases,
-            purchaseShareNum,
-            purchaseSharePrice,
-            saleShareNum,
-            saleSharePrice
+            purchaseNum,
+            purchasePrice,
+            saleNum,
+            salePrice
         } = this.state
 
         return (
@@ -163,10 +157,10 @@ class FifoCalculator extends Component {
                         onNumChange={purchaseNum => {
                             this.changePurchaseShares(purchaseNum)
                         }}
-                        shareNum={purchaseShareNum}
+                        shareNum={purchaseNum}
                     />
 
-                    { purchaseShareNum !== '' && purchaseShareNum === '0' || !isValidChar(purchaseShareNum)
+                    { purchaseNum !== '' && purchaseNum === '0' || !isValidChar(purchaseNum)
                         ? <TextInputError text="Please enter a positive number only!" />
                         : null
                     }
@@ -175,10 +169,10 @@ class FifoCalculator extends Component {
                         onPriceChange={purchasePrice => {
                             this.changePurchasePrice(purchasePrice)
                         }}
-                        sharePrice={purchaseSharePrice}
+                        sharePrice={purchasePrice}
                     />
 
-                    { purchaseSharePrice !== '' && purchaseSharePrice === '0' || !isValidChar(purchaseSharePrice)
+                    { purchasePrice !== '' && purchasePrice === '0' || !isValidChar(purchasePrice)
                         ? <TextInputError text="Please enter a positive number only!" />
                         : null
                     }
@@ -187,16 +181,16 @@ class FifoCalculator extends Component {
                 <SubmitBtn
                     children="Submit"
                     disabled={
-                        purchaseShareNum === '' || purchaseSharePrice === '' ||
-                        !isValidChar(purchaseShareNum) || !isValidChar(purchaseSharePrice)
+                        purchaseNum === '' || purchasePrice === '' ||
+                        !isValidChar(purchaseNum) || !isValidChar(purchasePrice)
                     }
                     onPress={this.submitPurchase}
                     style={[
                         Platform.OS === 'ios'
                         ? btns.btnIOS
                         : btns.btnAndroid,
-                        purchaseShareNum === '' || purchaseSharePrice === '' ||
-                        !isValidChar(purchaseShareNum) || !isValidChar(purchaseSharePrice)
+                        purchaseNum === '' || purchasePrice === '' ||
+                        !isValidChar(purchaseNum) || !isValidChar(purchasePrice)
                         ? btns.btnInvalid
                         : btns.btnValid,
                         [btns.btn, styles.submitBtnPurchase]
@@ -214,15 +208,15 @@ class FifoCalculator extends Component {
                         onNumChange={saleNum => {
                             this.changeSaleShares(saleNum)
                         }}
-                        shareNum={saleShareNum}
+                        shareNum={saleNum}
                     />
 
-                    { saleShareNum !== '' && saleShareNum === '0' || !isValidChar(saleShareNum)
+                    { saleNum !== '' && saleNum === '0' || !isValidChar(saleNum)
                         ? <TextInputError text="Please enter a positive number only!" />
                         : null
                     }
 
-                    { !isValidSaleShareNum
+                    { !isValidSaleNum
                         ? <TextInputError text="Number of sale shares must not exceed number of purchase shares!" />
                         : null
                     }
@@ -231,10 +225,10 @@ class FifoCalculator extends Component {
                         onPriceChange={salePrice => {
                             this.changeSalePrice(salePrice)
                         }}
-                        sharePrice={saleSharePrice}
+                        sharePrice={salePrice}
                     />
 
-                    { saleSharePrice !== '' && saleSharePrice === '0' || !isValidChar(saleSharePrice)
+                    { salePrice !== '' && salePrice === '0' || !isValidChar(salePrice)
                         ? <TextInputError text="Please enter a positive number only!" />
                         : null
                     }
@@ -244,17 +238,17 @@ class FifoCalculator extends Component {
                     children="Calculate"
                     disabled={
                         !purchases.length ||
-                        saleShareNum === '' || saleSharePrice === '' ||
-                        !isValidChar(saleShareNum) || !isValidChar(saleSharePrice)
+                        saleNum === '' || salePrice === '' ||
+                        !isValidChar(saleNum) || !isValidChar(salePrice)
                     }
-                    onPress={this.calculateProfit}
+                    onPress={() => this.calculateProfit(purchases, saleNum, salePrice)}
                     style={[
                         Platform.OS === 'ios'
                         ? btns.btnIOS
                         : btns.btnAndroid,
                         !purchases.length ||
-                        saleShareNum === '' || saleSharePrice === '' ||
-                        !isValidChar(saleShareNum) || !isValidChar(saleSharePrice)
+                        saleNum === '' || salePrice === '' ||
+                        !isValidChar(saleNum) || !isValidChar(salePrice)
                         ? btns.btnInvalid
                         : btns.btnValid,
                         [btns.btn, styles.submitBtnCalculate]
