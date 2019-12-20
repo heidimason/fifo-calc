@@ -77,6 +77,7 @@ class FifoCalculator extends PureComponent {
 			this.setState({
 				profit: profitParam,
 				purchases: purchasesParam,
+				purchaseNum: purchaseNumInt,
 				saleNum: saleNumParam,
 				salePrice: salePriceParam
 			})
