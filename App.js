@@ -59,7 +59,7 @@ class FifoCalculator extends PureComponent {
         })
     }
 
-    calculateProfit = (purchasesParam, saleNumParam, salePriceParam, profitParam = 0) => {
+    calculateProfit = (purchasesParam, saleNumParam, salePriceParam, profitParam = 0 || this.state.profit) => {
         const {
         	profit,
             purchases,
