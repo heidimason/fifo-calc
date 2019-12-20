@@ -42,7 +42,7 @@ class FifoCalculator extends PureComponent {
         }
 
         this.setState({
-            purchases: [...purchases, purchase]
+            purchases: [purchase, ...purchases]
         })
     }
 
