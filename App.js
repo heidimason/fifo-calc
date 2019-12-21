@@ -82,6 +82,8 @@ class FifoCalculator extends PureComponent {
 			})
 
 			if (purchaseNumInt === 0) {
+				purchasesParam.length--
+
         		this.setState({
         			purchaseNum: ''
         		})
