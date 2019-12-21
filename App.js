@@ -269,13 +269,18 @@ class FifoCalculator extends PureComponent {
 
                 <SubmitBtn
                     children="Reset All"
-                    disabled={!purchases.length}
+                    disabled={
+                    	!purchases.length &&
+                    	purchaseNum === '' && saleNum === '' &&
+                    	purchasePrice === '' && salePrice === ''}
                     onPress={this.resetAll}
                     style={[
                         Platform.OS === 'ios'
                         ? btns.btnIOS
                         : btns.btnAndroid,
-                        !purchases.length
+                        !purchases.length &&
+                    	purchaseNum === '' && saleNum === '' &&
+                    	purchasePrice === '' && salePrice === ''
                         ? btns.btnInvalid
                         : btns.btnValid,
                         [btns.btn, styles.submitBtnReset]
