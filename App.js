@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react'
-import { Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { FlatList, Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
 import NumShares from './src/components/NumShares'
 import PriceOfShares from './src/components/PriceOfShares'
 import TextInputError from './src/components/TextInputError'
 import SubmitBtn from './src/components/SubmitBtn'
 import { isValidChar } from './src/utils/helpers'
-import { blue, grayDark, orange, red, white } from './src/utils/styles/colors'
+import { blue, grayDark, grayXLight, orange, red, white } from './src/utils/styles/colors'
 import { btns } from './src/utils/styles/btns'
 import { fonts } from './src/utils/styles/fonts'
+import { forms } from './src/utils/styles/forms'
 import styled from 'styled-components/native'
 
 class FifoCalculator extends PureComponent {
@@ -135,6 +136,28 @@ class FifoCalculator extends PureComponent {
     	})
     }
 
+    renderItem = ({ item, index }) => (
+    	<ListContainer>
+    	   	<ListText style={styles.listHistory}>
+    			<Text
+    				style={{fontWeight: 'bold'}}>{index + 1}
+    			</Text>.
+    		</ListText>
+
+    		<ListText style={styles.listHistory}>
+    			<Text
+    				style={{fontWeight: 'bold'}}>Number of Shares
+    			</Text>: {item.num}
+    		</ListText>
+
+	    	<ListText style={styles.listHistory}>
+	    		<Text
+	    			style={{fontWeight: 'bold'}}>Price of Shares
+	    		</Text>: {item.price}
+	    	</ListText>
+	    </ListContainer>
+    )
+
     render () {
         StatusBar.setBarStyle('light-content', true)
 
@@ -205,7 +228,28 @@ class FifoCalculator extends PureComponent {
                     ]}
                 />
 
-                <Text style={{color: 'white'}}>{JSON.stringify(purchases)}</Text>
+                <View>
+                	<Text style={[fonts.h2, styles.text]}>
+	                	{ purchases.length > 0 &&
+			            	<Text>Purchase History</Text>
+			            }
+		            </Text>
+
+	                <HistoryContainer
+	                    style={
+	                    	Platform.OS === 'ios'?
+	                    	forms.inputIOS :
+	                    	forms.inputAndroid
+	                    }>
+	            		<FlatList
+	            			data={purchases}
+	            			renderItem={this.renderItem}
+	            			keyExtractor={
+	                            (purchase, index) => index.toString()
+	                        }>
+	                	</FlatList>
+	                </HistoryContainer>
+                </View>
 
                 <View>
                     <Text
@@ -296,13 +340,28 @@ class FifoCalculator extends PureComponent {
 const AppContainer = styled.View`
         background-color: ${grayDark}
         flex: 1
-        justifyContent: space-around
+        justify-content: space-around
     `,
     TextContainer = styled.View`
         align-items: center
     `,
     H1 = styled.Text`
         margin-top: 30
+    `,
+    HistoryContainer = styled.View`
+    	/* background-color: ${white} */
+    	margin-horizontal: 40
+    	max-height: 100
+    	/* padding-vertical: 10 */
+    	/* padding-horizontal: 10 */
+    `,
+    ListContainer = styled.View`
+    	margin-vertical: 10
+    	border-bottom-color: ${grayXLight}
+    	border-bottom-width: 1
+    	padding-bottom: 10
+    `,
+    ListText = styled.Text`
     `,
     ProfitText = styled.Text`
         letter-spacing: 1
@@ -327,6 +386,9 @@ const styles = StyleSheet.create({
     submitBtnReset: {
     	backgroundColor: red,
         marginBottom: 30
+    },
+    listHistory: {
+    	color: white
     }
 })
 
