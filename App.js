@@ -78,7 +78,6 @@ class FifoCalculator extends PureComponent {
 			this.setState({
 				profit: profitParam,
 				purchases: purchasesParam,
-				purchaseNum: purchaseNumInt,
 				saleNum: ''
 			})
 
@@ -138,12 +137,6 @@ class FifoCalculator extends PureComponent {
 
     renderItem = ({ item, index }) => (
     	<ListContainer>
-    	   	<ListText style={styles.listHistory}>
-    			<Text
-    				style={{fontWeight: 'bold'}}>{index + 1}
-    			</Text>.
-    		</ListText>
-
     		<ListText style={styles.listHistory}>
     			<Text
     				style={{fontWeight: 'bold'}}>Number of Shares
