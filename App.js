@@ -342,11 +342,8 @@ const AppContainer = styled.View`
         margin-top: 30
     `,
     HistoryContainer = styled.View`
-    	/* background-color: ${white} */
     	margin-horizontal: 40
     	max-height: 100
-    	/* padding-vertical: 10 */
-    	/* padding-horizontal: 10 */
     `,
     ListContainer = styled.View`
     	margin-vertical: 10
