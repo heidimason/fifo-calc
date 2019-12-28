@@ -1,6 +1,7 @@
 {
   "expo": {
-    "name": "FIFI Calculator",
+    "name": "Profit Calculator",
+    "description": "React Native app which calculates profit based on purchase/sale shares and FIFO accounting method",
     "slug": "fifo-calc",
     "privacy": "public",
     "sdkVersion": "36.0.0",
