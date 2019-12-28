@@ -13,7 +13,6 @@ export const forms = StyleSheet.create({
         color: grayXLight,
         height: 45,
         marginHorizontal: 40,
-        padding: 10,
         textAlign: 'center'
     },
     textInputError: {
