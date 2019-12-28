@@ -185,7 +185,7 @@ class FifoCalculator extends PureComponent {
                     />
 
                     { purchaseNum !== '' && purchaseNum === '0' || !isValidChar(purchaseNum)
-                        ? <TextInputError text="Please enter a positive number only!" />
+                        ? <TextInputError text="Please enter a positive integer only!" />
                         : null
                     }
 
@@ -197,7 +197,7 @@ class FifoCalculator extends PureComponent {
                     />
 
                     { purchasePrice !== '' && purchasePrice === '0' || !isValidChar(purchasePrice)
-                        ? <TextInputError text="Please enter a positive number only!" />
+                        ? <TextInputError text="Please enter a positive integer only!" />
                         : null
                     }
                 </View>
@@ -257,7 +257,7 @@ class FifoCalculator extends PureComponent {
                     />
 
                     { saleNum !== '' && saleNum === '0' || !isValidChar(saleNum)
-                        ? <TextInputError text="Please enter a positive number only!" />
+                        ? <TextInputError text="Please enter a positive integer only!" />
                         : null
                     }
 
@@ -274,7 +274,7 @@ class FifoCalculator extends PureComponent {
                     />
 
                     { salePrice !== '' && salePrice === '0' || !isValidChar(salePrice)
-                        ? <TextInputError text="Please enter a positive number only!" />
+                        ? <TextInputError text="Please enter a positive integer only!" />
                         : null
                     }
                 </View>
