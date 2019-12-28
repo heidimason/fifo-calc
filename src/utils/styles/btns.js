@@ -14,13 +14,14 @@ export const btns = StyleSheet.create({
     btnAndroid: {
         alignSelf: 'center',
         borderRadius: 2,
-        paddingVertical: 6,
-        width: '80%'
+        width: '83%'
     },
     btnIOS: {
         borderRadius: 7,
-        marginHorizontal: 40,
-        paddingVertical: 6
+        marginHorizontal: 40
+    },
+    btnContainer: {
+    	justifyContent: 'center'
     },
     btnText: {
         color: white,

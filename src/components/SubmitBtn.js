@@ -8,7 +8,7 @@ const SubmitBtn = ({ children, disabled, onPress, style = {} }) => {
     	<TouchableOpacity
     		disabled={disabled}
         	onPress={onPress}
-        	style={style}>
+        	style={[style, btns.btnContainer]}>
         	<Text
                 style={[btns.btnText, fonts.h2]}>{children}
             </Text>
