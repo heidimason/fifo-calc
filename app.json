@@ -29,7 +29,19 @@
       "bundleIdentifier": "com.heidimason.fifocalculator"
     },
     "android": {
-			"package": "com.heidimason.fifocalculator"
+			"package": "com.heidimason.fifocalculator",
+			//  To use ONLY the following minimum necessary permissions and none of the extras supported
+      // by Expo, set "permissions" to []. The minimum necessary permissions do not require a
+      // Privacy Policy when uploading to Google Play Store and are:
+
+      // • receive data from Internet
+      // • view network connections
+      // • full network access
+      // • change your audio settings
+      // • draw over other apps
+      // • prevent device from sleeping
+			// Source: https://docs.expo.io/versions/latest/workflow/configuration/#android
+			"permissions": []
 		}
   }
 }
