@@ -10,7 +10,7 @@
   },
   "jest": {
     "preset": "react-native",
-    "setupFilesAfterEnv": ["./src/setupTests.js"]
+    "setupFilesAfterEnv": ["./setupTests.js"]
   },
   "dependencies": {
     "expo": "^36.0.0",
