@@ -15,9 +15,11 @@ class FifoCalculator extends PureComponent {
     state = {
         isValidSaleNum: true,
         profit: 0,
+        purchaseHistory: [],
         purchases: [],
         purchaseNum: '',
         purchasePrice: '',
+        saleHistory: [],
         saleNum: '',
         salePrice: ''
     }
@@ -35,14 +37,20 @@ class FifoCalculator extends PureComponent {
     }
 
     submitPurchase = () => {
-        const { purchases, purchaseNum, purchasePrice } = this.state
+        const { purchaseHistory, purchases, purchaseNum, purchasePrice } = this.state
 
         const purchase = {
+            num: parseInt(purchaseNum),
+            price: parseInt(purchasePrice)
+        },
+
+        purchaseCopy = {
             num: parseInt(purchaseNum),
             price: parseInt(purchasePrice)
         }
 
         this.setState({
+        	purchaseHistory: [purchaseCopy, ...purchaseHistory],
             purchases: [purchase, ...purchases]
         })
     }
@@ -64,6 +72,7 @@ class FifoCalculator extends PureComponent {
         const {
         	profit,
             purchases,
+            saleHistory,
             saleNum,
             salePrice
         } = this.state
@@ -92,6 +101,17 @@ class FifoCalculator extends PureComponent {
 			return
 		}
 
+		// For Sales History (i.e. Audit Trail)
+        const saleCopy = {
+            num: parseInt(saleNum),
+            price: parseInt(salePrice)
+        }
+
+        this.setState({
+            saleHistory: [saleCopy, ...saleHistory]
+        })
+
+		// Recursively calculate profit
 		if (saleNumInt <= purchaseNumInt) {
 			profitParam += (saleNumInt * salePriceInt) - (saleNumInt * purchasePriceInt)
 
@@ -127,9 +147,11 @@ class FifoCalculator extends PureComponent {
     	this.setState({
 	    	isValidSaleNum: true,
 	        profit: 0,
+	        purchaseHistory: [],
 	        purchases: [],
 	        purchaseNum: '',
 	        purchasePrice: '',
+	        saleHistory: [],
 	        saleNum: '',
 	        salePrice: ''
     	})
@@ -137,17 +159,13 @@ class FifoCalculator extends PureComponent {
 
     renderItem = ({ item, index }) => (
     	<ListContainer>
-    		<ListText style={styles.listHistory}>
-    			<Text
-    				style={{fontWeight: 'bold'}}>Number of Shares
-    			</Text>: {item.num}
-    		</ListText>
+    		<HistoryText>
+    			<SharesText>Number of Shares</SharesText>: {item.num}
+    		</HistoryText>
 
-	    	<ListText style={styles.listHistory}>
-	    		<Text
-	    			style={{fontWeight: 'bold'}}>Price of Shares
-	    		</Text>: {item.price}
-	    	</ListText>
+	    	<HistoryText>
+	    		<SharesText>Price of Shares</SharesText>: {item.price}
+	    	</HistoryText>
 	    </ListContainer>
     )
 
@@ -157,9 +175,11 @@ class FifoCalculator extends PureComponent {
         const {
             isValidSaleNum,
             profit,
+            purchaseHistory,
             purchases,
             purchaseNum,
             purchasePrice,
+            saleHistory,
             saleNum,
             salePrice
         } = this.state
@@ -221,28 +241,37 @@ class FifoCalculator extends PureComponent {
                     ]}
                 />
 
-                <View>
-                	<Text style={[fonts.h2, styles.text]}>
-	                	{ purchases.length > 0 &&
-			            	<Text>Purchase History</Text>
-			            }
-		            </Text>
+				{ purchaseHistory.length > 0 &&
+	                <View>
+	            		<Text style={[fonts.h2, styles.text]}>Audit Trail</Text>
 
-	                <HistoryContainer
-	                    style={
-	                    	Platform.OS === 'ios'?
-	                    	forms.inputIOS :
-	                    	forms.inputAndroid
-	                    }>
-	            		<FlatList
-	            			data={purchases}
-	            			renderItem={this.renderItem}
-	            			keyExtractor={
-	                            (purchase, index) => index.toString()
-	                        }>
-	                	</FlatList>
-	                </HistoryContainer>
-                </View>
+		                <HistoryContainer>
+		                    <HistoryView>
+		                		<HistoryText>Purchases</HistoryText>
+
+			            		<FlatList
+			            			data={purchaseHistory}
+			            			renderItem={this.renderItem}
+			            			keyExtractor={
+			                            (purchase, index) => index.toString()
+			                        }>
+			                	</FlatList>
+		                	</HistoryView>
+
+		                	<HistoryView>
+			                	<HistoryText>Sales</HistoryText>
+
+			                	<FlatList
+			            			data={saleHistory}
+			            			renderItem={this.renderItem}
+			            			keyExtractor={
+			                            (sale, index) => index.toString()
+			                        }>
+			                	</FlatList>
+		                	</HistoryView>
+		                </HistoryContainer>
+	                </View>
+            	}
 
                 <View>
                     <Text
@@ -342,16 +371,24 @@ const AppContainer = styled.View`
         margin-top: 30
     `,
     HistoryContainer = styled.View`
+    	flex-direction: row
     	margin-horizontal: 40
     	max-height: 100
+    `,
+    HistoryView = styled.View`
+    	width: 50%
+    `,
+    HistoryText = styled.Text`
+    	color: ${white}
+    `,
+    SharesText = styled.Text`
+    	font-weight: bold
     `,
     ListContainer = styled.View`
     	margin-vertical: 10
     	border-bottom-color: ${grayXLight}
     	border-bottom-width: 1
     	padding-bottom: 10
-    `,
-    ListText = styled.Text`
     `,
     ProfitText = styled.Text`
         letter-spacing: 1
@@ -376,9 +413,6 @@ const styles = StyleSheet.create({
     submitBtnReset: {
     	backgroundColor: red,
         marginBottom: 30
-    },
-    listHistory: {
-    	color: white
     }
 })
 
