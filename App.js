@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react'
-import { FlatList, Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
 import NumShares from './src/components/NumShares'
 import PriceOfShares from './src/components/PriceOfShares'
 import TextInputError from './src/components/TextInputError'
 import SubmitBtn from './src/components/SubmitBtn'
+import History from './src/components/History'
 import { isValidChar } from './src/utils/helpers'
-import { blue, grayDark, grayXLight, orange, red, white } from './src/utils/styles/colors'
+import { blue, grayDark, orange, red, white } from './src/utils/styles/colors'
 import { btns } from './src/utils/styles/btns'
 import { fonts } from './src/utils/styles/fonts'
 import { forms } from './src/utils/styles/forms'
@@ -157,18 +158,6 @@ class FifoCalculator extends PureComponent {
     	})
     }
 
-    renderItem = ({ item, index }) => (
-    	<ListContainer>
-    		<HistoryText>
-    			<SharesText>Number of Shares</SharesText>: {item.num}
-    		</HistoryText>
-
-	    	<HistoryText>
-	    		<SharesText>Price of Shares</SharesText>: {item.price}
-	    	</HistoryText>
-	    </ListContainer>
-    )
-
     render () {
         StatusBar.setBarStyle('light-content', true)
 
@@ -242,35 +231,10 @@ class FifoCalculator extends PureComponent {
                 />
 
 				{ purchaseHistory.length > 0 &&
-	                <View>
-	            		<Text style={[fonts.h2, styles.text]}>Audit Trail</Text>
-
-		                <HistoryContainer>
-		                    <HistoryView>
-		                		<HistoryText>Purchases</HistoryText>
-
-			            		<FlatList
-			            			data={purchaseHistory}
-			            			renderItem={this.renderItem}
-			            			keyExtractor={
-			                            (purchase, index) => index.toString()
-			                        }>
-			                	</FlatList>
-		                	</HistoryView>
-
-		                	<HistoryView>
-			                	<HistoryText>Sales</HistoryText>
-
-			                	<FlatList
-			            			data={saleHistory}
-			            			renderItem={this.renderItem}
-			            			keyExtractor={
-			                            (sale, index) => index.toString()
-			                        }>
-			                	</FlatList>
-		                	</HistoryView>
-		                </HistoryContainer>
-	                </View>
+					<History
+						purchaseHistory={purchaseHistory}
+						saleHistory={saleHistory}
+					/>
             	}
 
                 <View>
@@ -369,26 +333,6 @@ const AppContainer = styled.View`
     `,
     H1 = styled.Text`
         margin-top: 30
-    `,
-    HistoryContainer = styled.View`
-    	flex-direction: row
-    	margin-horizontal: 40
-    	max-height: 100
-    `,
-    HistoryView = styled.View`
-    	width: 50%
-    `,
-    HistoryText = styled.Text`
-    	color: ${white}
-    `,
-    SharesText = styled.Text`
-    	font-weight: bold
-    `,
-    ListContainer = styled.View`
-    	margin-vertical: 10
-    	border-bottom-color: ${grayXLight}
-    	border-bottom-width: 1
-    	padding-bottom: 10
     `,
     ProfitText = styled.Text`
         letter-spacing: 1
