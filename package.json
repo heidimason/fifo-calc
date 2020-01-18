@@ -10,9 +10,12 @@
   },
   "jest": {
     "preset": "react-native",
-    "setupFilesAfterEnv": ["./setupTests.js"]
+    "setupFilesAfterEnv": [
+      "./setupTests.js"
+    ]
   },
   "dependencies": {
+    "@expo/vector-icons": "^10.0.6",
     "expo": "^36.0.0",
     "react": "16.9.0",
     "react-dom": "16.9.0",

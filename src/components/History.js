@@ -20,35 +20,31 @@ const History = props => {
 	)
 
 	return (
-	    <View>
-    		<Text style={[fonts.h2, styles.text]}>Audit Trail</Text>
+        <HistoryContainer>
+            <HistoryView>
+        		<HistoryText>Purchases</HistoryText>
 
-            <HistoryContainer>
-                <HistoryView>
-            		<HistoryText>Purchases</HistoryText>
+        		<FlatList
+        			data={purchaseHistory}
+        			renderItem={this.renderItem}
+        			keyExtractor={
+                        (purchase, index) => index.toString()
+                    }>
+            	</FlatList>
+        	</HistoryView>
 
-            		<FlatList
-            			data={purchaseHistory}
-            			renderItem={this.renderItem}
-            			keyExtractor={
-                            (purchase, index) => index.toString()
-                        }>
-                	</FlatList>
-            	</HistoryView>
+        	<HistoryView>
+            	<HistoryText>Sales</HistoryText>
 
-            	<HistoryView>
-                	<HistoryText>Sales</HistoryText>
-
-                	<FlatList
-            			data={saleHistory}
-            			renderItem={this.renderItem}
-            			keyExtractor={
-                            (sale, index) => index.toString()
-                        }>
-                	</FlatList>
-            	</HistoryView>
-            </HistoryContainer>
-        </View>
+            	<FlatList
+        			data={saleHistory}
+        			renderItem={this.renderItem}
+        			keyExtractor={
+                        (sale, index) => index.toString()
+                    }>
+            	</FlatList>
+        	</HistoryView>
+        </HistoryContainer>
 	)
 }
 

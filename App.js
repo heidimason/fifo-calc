@@ -1,12 +1,14 @@
 import React, { PureComponent } from 'react'
-import { Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import NumShares from './src/components/NumShares'
 import PriceOfShares from './src/components/PriceOfShares'
 import TextInputError from './src/components/TextInputError'
 import SubmitBtn from './src/components/SubmitBtn'
+import { MaterialIcons } from '@expo/vector-icons'
+import { RFPercentage } from 'react-native-responsive-fontsize'
 import History from './src/components/History'
 import { isValidChar } from './src/utils/helpers'
-import { blue, grayDark, orange, red, white } from './src/utils/styles/colors'
+import { blue, grayDark, green, orange, red, white } from './src/utils/styles/colors'
 import { btns } from './src/utils/styles/btns'
 import { fonts } from './src/utils/styles/fonts'
 import { forms } from './src/utils/styles/forms'
@@ -14,6 +16,7 @@ import styled from 'styled-components/native'
 
 class FifoCalculator extends PureComponent {
     state = {
+    	audit: false,
         isValidSaleNum: true,
         profit: 0,
         purchaseHistory: [],
@@ -54,6 +57,14 @@ class FifoCalculator extends PureComponent {
         	purchaseHistory: [purchaseCopy, ...purchaseHistory],
             purchases: [purchase, ...purchases]
         })
+    }
+
+    audit = () => {
+    	const { audit } = this.state
+
+    	this.setState({
+			audit: true
+    	})
     }
 
     changeSaleShares = numShares => {
@@ -162,6 +173,7 @@ class FifoCalculator extends PureComponent {
         StatusBar.setBarStyle('light-content', true)
 
         const {
+        	audit,
             isValidSaleNum,
             profit,
             purchaseHistory,
@@ -230,12 +242,37 @@ class FifoCalculator extends PureComponent {
                     ]}
                 />
 
-				{ purchaseHistory.length > 0 &&
-					<History
-						purchaseHistory={purchaseHistory}
-						saleHistory={saleHistory}
-					/>
-            	}
+                <View>
+            		<AuditBtn
+            			disabled={!purchaseHistory.length}
+            			onPress={this.audit}
+            			style={[
+	                        !purchaseHistory.length
+	                        ? btns.btnInvalid
+	                        : btns.btnValid,
+	                        [btns.btn]
+	                    ]}>
+            			<AuditText
+            				style={[btns.btnText, fonts.h3]}>Audit
+            			</AuditText>
+            		</AuditBtn>
+
+
+                	{ purchaseHistory.length > 0 && audit === true &&
+                		<HistoryView>
+	            		    <MaterialIcons
+		                        color={white}
+		                        name='close'
+		                        size={RFPercentage(3)}
+		            		/>
+
+							<History
+								purchaseHistory={purchaseHistory}
+								saleHistory={saleHistory}
+							/>
+						</HistoryView>
+					}
+				</View>
 
                 <View>
                     <Text
@@ -333,6 +370,23 @@ const AppContainer = styled.View`
     `,
     H1 = styled.Text`
         margin-top: 30
+    `,
+    AuditBtn = styled.TouchableOpacity`
+    	align-self: flex-end
+    	position: absolute
+    	transform: rotate(270deg)
+    `,
+    AuditText = styled.Text`
+    	align-self: center
+    	background-color: ${green}
+    	letter-spacing: 3
+    	paddingHorizontal: 3
+    	position: absolute
+    	text-transform: uppercase
+    	top: 3
+    `,
+    HistoryView = styled.View`
+    	background-color: rgba(51, 51, 51, 0.5)
     `,
     ProfitText = styled.Text`
         letter-spacing: 1
