@@ -4,8 +4,6 @@ import NumShares from './src/components/NumShares'
 import PriceOfShares from './src/components/PriceOfShares'
 import TextInputError from './src/components/TextInputError'
 import SubmitBtn from './src/components/SubmitBtn'
-import { MaterialIcons } from '@expo/vector-icons'
-import { RFPercentage } from 'react-native-responsive-fontsize'
 import History from './src/components/History'
 import { isValidChar } from './src/utils/helpers'
 import { blue, grayDark, green, orange, red, white } from './src/utils/styles/colors'
@@ -258,14 +256,8 @@ class FifoCalculator extends PureComponent {
             		</AuditBtn>
 
 
-                	{ purchaseHistory.length > 0 && audit === true &&
+					{ purchaseHistory.length > 0 && audit === true &&
                 		<HistoryView>
-	            		    <MaterialIcons
-		                        color={white}
-		                        name='close'
-		                        size={RFPercentage(3)}
-		            		/>
-
 							<History
 								purchaseHistory={purchaseHistory}
 								saleHistory={saleHistory}
@@ -386,7 +378,8 @@ const AppContainer = styled.View`
     	top: 3
     `,
     HistoryView = styled.View`
-    	background-color: rgba(51, 51, 51, 0.5)
+    	background-color: rgba(0, 0, 0, 0.5)
+    	position: absolute
     `,
     ProfitText = styled.Text`
         letter-spacing: 1

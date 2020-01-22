@@ -1,7 +1,8 @@
 import React from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { MaterialIcons } from '@expo/vector-icons'
+import { RFPercentage } from 'react-native-responsive-fontsize'
 import { grayXLight, white } from '../utils/styles/colors'
-import { fonts } from '../utils/styles/fonts'
 import styled from 'styled-components/native'
 
 const History = props => {
@@ -21,6 +22,13 @@ const History = props => {
 
 	return (
         <HistoryContainer>
+		    <MaterialIcons
+                color={white}
+                name='close'
+                size={RFPercentage(3)}
+                style={styles.closeIcon}
+    		/>
+
             <HistoryView>
         		<HistoryText>Purchases</HistoryText>
 
@@ -50,8 +58,8 @@ const History = props => {
 
 const HistoryContainer = styled.View`
 		flex-direction: row
+		margin-vertical: 20
 		margin-horizontal: 40
-		max-height: 100
 	`,
 	HistoryView = styled.View`
 		width: 50%
@@ -70,13 +78,10 @@ const HistoryContainer = styled.View`
 	`
 
 const styles = StyleSheet.create({
-	h2: {
-		marginBottom: 10
-	},
-	text: {
-		color: white,
-		marginHorizontal: 40
-	}
+    closeIcon: {
+    	position: 'absolute',
+    	right: 0
+    }
 })
 
 export default History
