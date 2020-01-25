@@ -240,21 +240,25 @@ class HomeScreen extends PureComponent {
 					]}
 				/>
 
-				<View>
-					<HistoryBtn
-						disabled={!purchaseHistory.length}
-						onPress={this.toHistory}
-						style={[
-							!purchaseHistory.length
-							? btns.btnInvalid
-							: btns.btnValid,
-							[btns.btn]
-						]}>
+				<HistoryBtn
+					disabled={!purchaseHistory.length}
+					onPress={this.toHistory}
+					style={[
+						!purchaseHistory.length
+						? btns.btnInvalid
+						: btns.btnValid,
+						btns.btn
+					]}>
+					{ Platform.OS === 'ios' ?
 						<HistoryText
-							style={[btns.btnText, fonts.h3]}>History
+							style={[btns.btnText, fonts.h3, {position: 'absolute'}]}>History
 						</HistoryText>
-					</HistoryBtn>
-				</View>
+						:
+						<HistoryText
+							style={[btns.btnText, fonts.h3, {paddingVertical: 25}]}>History
+						</HistoryText>
+					}
+				</HistoryBtn>
 
 				<View>
 					<Text
@@ -355,7 +359,7 @@ const AppContainer = styled.View`
 	`,
 	HistoryBtn = styled.TouchableOpacity`
 		align-self: flex-end
-		position: absolute
+		top: 10
 		transform: rotate(270deg)
 	`,
 	HistoryText = styled.Text`
@@ -363,7 +367,6 @@ const AppContainer = styled.View`
 		background-color: ${green}
 		letter-spacing: 3
 		paddingHorizontal: 3
-		position: absolute
 		text-transform: uppercase
 		top: 3
 	`,
