@@ -183,7 +183,7 @@ class HomeScreen extends PureComponent {
 		} = this.state
 
 		return (
-			<AppContainer>
+			<HomeContainer>
 				<TextContainer>
 					<H1
 						style={[fonts.h1, styles.text]}>FIFO Profit Calculator
@@ -340,12 +340,12 @@ class HomeScreen extends PureComponent {
 						[btns.btn, styles.submitBtnReset]
 					]}
 				/>
-			</AppContainer>
+			</HomeContainer>
 		)
 	}
 }
 
-const AppContainer = styled.View`
+const HomeContainer = styled.View`
 		background-color: ${grayDark}
 		flex: 1
 		justify-content: space-around
