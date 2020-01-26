@@ -6,7 +6,7 @@ import { grayDark, grayXLight, white } from '../utils/styles/colors'
 import styled from 'styled-components/native'
 
 const HistoryScreen = props => {
-	const { purchaseHistory, saleHistory } = props
+	const { purchaseHistory, saleHistory } = props.navigation.state.params
 
 	renderItem = ({ item, index }) => (
 		<FlatListView>
