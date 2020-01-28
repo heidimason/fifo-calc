@@ -1,36 +1,61 @@
 import React from 'react'
-import { FlatList, StyleSheet, Text, View } from 'react-native'
-import { MaterialIcons } from '@expo/vector-icons'
+import { FlatList, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 import { grayDark, grayXLight, white } from '../utils/styles/colors'
+import { app } from '../utils/styles/app'
+import { fonts } from '../utils/styles/fonts'
 import styled from 'styled-components/native'
 
 const HistoryScreen = props => {
-	const { purchaseHistory, saleHistory } = props.navigation.state.params
+	const { profit, purchaseHistory, saleHistory } = props.navigation.state.params
+
+	toHome = () => {
+        const { navigation } = props
+
+        navigation.navigate('Home')
+    }
 
 	renderItem = ({ item, index }) => (
 		<FlatListView>
-			<HistoryText>
-				<SharesText>Number of Shares</SharesText>: {item.num}
-			</HistoryText>
+			<HistoryText>Number of Shares: <SharesText>{item.num}</SharesText></HistoryText>
 
-			<HistoryText>
-				<SharesText>Price of Shares</SharesText>: {item.price}
-			</HistoryText>
+			<HistoryText>Price of Shares: <SharesText>{item.price}</SharesText></HistoryText>
 		</FlatListView>
 	)
 
 	return (
-        <HistoryContainer>
-		    <MaterialIcons
-                color={white}
-                name='close'
-                size={RFPercentage(3)}
-                style={styles.closeIcon}
-    		/>
+        <View style={app.container}>
+			<BackBtn onPress={this.toHome}>
+				{ Platform.OS === 'ios' ?
+					<View>
+						<Ionicons
+							color={white}
+			                name='ios-arrow-back'
+			                size={RFPercentage(4)}
+						/>
+
+						<H1
+							style={[fonts.h1, fonts.text]}>History
+						</H1>
+					</View>
+					:
+					<View>
+					    <Ionicons
+			                color={white}
+			                name='md-arrow-round-back'
+			                size={RFPercentage(4)}
+			    		/>
+
+						<H1
+							style={[fonts.h1, fonts.text]}>History
+						</H1>
+					</View>
+	    		}
+			</BackBtn>
 
             <HistoryView>
-        		<HistoryText>Purchases</HistoryText>
+        		<HistoryText style={[fonts.h2, styles.h2]}>Purchases</HistoryText>
 
         		<FlatList
         			data={purchaseHistory}
@@ -42,7 +67,7 @@ const HistoryScreen = props => {
         	</HistoryView>
 
         	<HistoryView>
-            	<HistoryText>Sales</HistoryText>
+            	<HistoryText style={[fonts.h2, styles.h2]}>Sales</HistoryText>
 
             	<FlatList
         			data={saleHistory}
@@ -52,18 +77,23 @@ const HistoryScreen = props => {
                     }>
             	</FlatList>
         	</HistoryView>
-        </HistoryContainer>
+
+			<TextContainer>
+				<Text
+					style={[fonts.h2, fonts.profit, fonts.text]}>Profit: {profit}
+				</Text>
+			</TextContainer>
+        </View>
 	)
 }
 
-const HistoryContainer = styled.View`
-		background-color: ${grayDark}
-		flex: 1
-		justify-content: space-around
-		flex-direction: row
+const BackBtn = styled.TouchableOpacity`
+		align-items: center
+	`,
+	H1 = styled.Text`
+		top: -40
 	`,
 	HistoryView = styled.View`
-		margin-vertical: 20
 		margin-horizontal: 40
 	`,
 	HistoryText = styled.Text`
@@ -77,13 +107,15 @@ const HistoryContainer = styled.View`
 		border-bottom-color: ${grayXLight}
 		border-bottom-width: 1
 		padding-bottom: 10
+	`,
+	TextContainer = styled.View`
+		align-items: center
 	`
 
 const styles = StyleSheet.create({
-    closeIcon: {
-    	position: 'absolute',
-    	right: 0
-    }
+	h2: {
+		marginBottom: 10
+	}
 })
 
 export default HistoryScreen

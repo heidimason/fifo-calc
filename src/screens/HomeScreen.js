@@ -6,6 +6,7 @@ import TextInputError from '../components/TextInputError'
 import SubmitBtn from '../components/SubmitBtn'
 import { isValidChar } from '../utils/helpers'
 import { blue, grayDark, green, orange, red, white } from '../utils/styles/colors'
+import { app } from '../utils/styles/app'
 import { btns } from '../utils/styles/btns'
 import { fonts } from '../utils/styles/fonts'
 import { forms } from '../utils/styles/forms'
@@ -56,10 +57,11 @@ class HomeScreen extends PureComponent {
 	}
 
 	toHistory = () => {
-        const { purchaseHistory, saleHistory } = this.state,
-        						{ navigation } = this.props
+        const { profit, purchaseHistory, saleHistory } = this.state,
+        								{ navigation } = this.props
 
         navigation.navigate('History', {
+        	profit,
         	purchaseHistory,
         	saleHistory
         })
@@ -183,16 +185,16 @@ class HomeScreen extends PureComponent {
 		} = this.state
 
 		return (
-			<HomeContainer>
+			<View style={app.container}>
 				<TextContainer>
 					<H1
-						style={[fonts.h1, styles.text]}>FIFO Profit Calculator
+						style={[fonts.h1, fonts.text]}>FIFO Profit Calculator
 					</H1>
 				</TextContainer>
 
 				<View>
 					<Text
-						style={[fonts.h2, styles.h2, styles.text]}>Purchase
+						style={[fonts.h2, fonts.text, styles.h2]}>Purchase
 					</Text>
 
 					<NumShares
@@ -261,7 +263,7 @@ class HomeScreen extends PureComponent {
 
 				<View>
 					<Text
-						style={[fonts.h2, styles.h2, styles.text]}>Sale
+						style={[fonts.h2, fonts.text, styles.h2]}>Sale
 					</Text>
 
 					<NumShares
@@ -316,9 +318,9 @@ class HomeScreen extends PureComponent {
 				/>
 
 				<TextContainer>
-					<ProfitText
-						style={[fonts.h2, styles.text]}>Profit: {profit}
-					</ProfitText>
+					<Text
+						style={[fonts.h2, fonts.profit, fonts.text]}>Profit: {profit}
+					</Text>
 				</TextContainer>
 
 				<SubmitBtn
@@ -340,17 +342,12 @@ class HomeScreen extends PureComponent {
 						[btns.btn, styles.submitBtnReset]
 					]}
 				/>
-			</HomeContainer>
+			</View>
 		)
 	}
 }
 
-const HomeContainer = styled.View`
-		background-color: ${grayDark}
-		flex: 1
-		justify-content: space-around
-	`,
-	TextContainer = styled.View`
+const TextContainer = styled.View`
 		align-items: center
 	`,
 	H1 = styled.Text`
@@ -368,20 +365,11 @@ const HomeContainer = styled.View`
 		paddingHorizontal: 3
 		text-transform: uppercase
 		top: 3
-	`,
-	ProfitText = styled.Text`
-		letter-spacing: 1
-		margin-bottom: 30
-		text-transform: uppercase
 	`
 
 const styles = StyleSheet.create({
 	h2: {
 		marginBottom: 10
-	},
-	text: {
-		color: white,
-		marginHorizontal: 40
 	},
 	submitBtnPurchase: {
 		backgroundColor: blue
