@@ -67,15 +67,19 @@ const HistoryScreen = props => {
         	</HistoryView>
 
         	<HistoryView>
-            	<HistoryText style={[fonts.h2, styles.h2]}>Sales</HistoryText>
+	        	{ saleHistory.length > 0 &&
+	        		<View>
+	            	<HistoryText style={[fonts.h2, styles.h2]}>Sales</HistoryText>
 
-            	<FlatList
-        			data={saleHistory}
-        			renderItem={this.renderItem}
-        			keyExtractor={
-                        (sale, index) => index.toString()
-                    }>
-            	</FlatList>
+	            	<FlatList
+	        			data={saleHistory}
+	        			renderItem={this.renderItem}
+	        			keyExtractor={
+	                        (sale, index) => index.toString()
+	                    }>
+	            	</FlatList>
+	            	</View>
+            	}
         	</HistoryView>
 
 			<TextContainer>
