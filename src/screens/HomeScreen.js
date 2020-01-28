@@ -256,7 +256,7 @@ class HomeScreen extends PureComponent {
 						</HistoryText>
 						:
 						<HistoryText
-							style={[btns.btnText, fonts.h3, {paddingVertical: 25}]}>History
+							style={[btns.btnText, fonts.h3]}>History
 						</HistoryText>
 					}
 				</HistoryBtn>

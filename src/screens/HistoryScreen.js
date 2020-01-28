@@ -28,29 +28,29 @@ const HistoryScreen = props => {
         <View style={app.container}>
 			<BackBtn onPress={this.toHome}>
 				{ Platform.OS === 'ios' ?
-					<View>
+					<BackBtnView>
 						<Ionicons
 							color={white}
 			                name='ios-arrow-back'
-			                size={RFPercentage(4)}
+			                size={RFPercentage(5)}
 						/>
 
-						<H1
+						<Text
 							style={[fonts.h1, fonts.text]}>History
-						</H1>
-					</View>
+						</Text>
+					</BackBtnView>
 					:
-					<View>
+					<BackBtnView>
 					    <Ionicons
 			                color={white}
 			                name='md-arrow-round-back'
-			                size={RFPercentage(4)}
+			                size={RFPercentage(5)}
 			    		/>
 
-						<H1
+						<Text
 							style={[fonts.h1, fonts.text]}>History
-						</H1>
-					</View>
+						</Text>
+					</BackBtnView>
 	    		}
 			</BackBtn>
 
@@ -69,15 +69,15 @@ const HistoryScreen = props => {
         	<HistoryView>
 	        	{ saleHistory.length > 0 &&
 	        		<View>
-	            	<HistoryText style={[fonts.h2, styles.h2]}>Sales</HistoryText>
+		            	<HistoryText style={[fonts.h2, styles.h2]}>Sales</HistoryText>
 
-	            	<FlatList
-	        			data={saleHistory}
-	        			renderItem={this.renderItem}
-	        			keyExtractor={
-	                        (sale, index) => index.toString()
-	                    }>
-	            	</FlatList>
+		            	<FlatList
+		        			data={saleHistory}
+		        			renderItem={this.renderItem}
+		        			keyExtractor={
+		                        (sale, index) => index.toString()
+		                    }>
+		            	</FlatList>
 	            	</View>
             	}
         	</HistoryView>
@@ -94,8 +94,8 @@ const HistoryScreen = props => {
 const BackBtn = styled.TouchableOpacity`
 		align-items: center
 	`,
-	H1 = styled.Text`
-		top: -40
+	BackBtnView = styled.View`
+        flex-direction: row
 	`,
 	HistoryView = styled.View`
 		margin-horizontal: 40
