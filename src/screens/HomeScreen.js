@@ -41,14 +41,12 @@ class HomeScreen extends PureComponent {
 		const { purchaseHistory, purchases, purchaseNum, purchasePrice } = this.state
 
 		const purchase = {
+			index: parseInt(purchaseHistory.length + 1),
 			num: parseInt(purchaseNum),
 			price: parseInt(purchasePrice)
 		},
 
-		purchaseCopy = {
-			num: parseInt(purchaseNum),
-			price: parseInt(purchasePrice)
-		}
+		purchaseCopy = JSON.parse( JSON.stringify(purchase) )
 
 		this.setState({
 			purchaseHistory: [purchaseCopy, ...purchaseHistory],
@@ -115,6 +113,7 @@ class HomeScreen extends PureComponent {
 
 		// For Sales History
 		const saleCopy = {
+			index: parseInt(saleHistory.length + 1),
 			num: parseInt(saleNum),
 			price: parseInt(salePrice)
 		}

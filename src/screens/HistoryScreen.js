@@ -18,6 +18,10 @@ const HistoryScreen = props => {
 
 	renderItem = ({ item, index }) => (
 		<FlatListView>
+			<HistoryText>
+				<SharesText>{item.index}.</SharesText>
+			</HistoryText>
+
 			<HistoryText>Number of Shares: <SharesText>{item.num}</SharesText></HistoryText>
 
 			<HistoryText>Price of Shares: <SharesText>{item.price}</SharesText></HistoryText>
@@ -99,6 +103,7 @@ const BackBtn = styled.TouchableOpacity`
 	`,
 	HistoryView = styled.View`
 		margin-horizontal: 40
+		max-height: 30%
 	`,
 	HistoryText = styled.Text`
 		color: ${white}
