@@ -93,11 +93,22 @@ class HomeScreen extends PureComponent {
 		let saleNumInt = parseInt(saleNumParam),
 		purchaseNumInt = parseInt(purchasesParam[purchasesParam.length - 1].num)
 
+		// For Sales History
+		const saleCopy = {
+			index: parseInt(saleHistory.length + 1),
+			num: parseInt(saleNum),
+			price: parseInt(salePrice)
+		}
+
+		this.setState({
+			saleHistory: [saleCopy, ...saleHistory]
+		})
+
+		// Base case
 		if (saleNumInt === 0) {
 			this.setState({
 				profit: profitParam,
-				purchases: purchasesParam,
-				saleNum: ''
+				purchases: purchasesParam
 			})
 
 			if (purchaseNumInt === 0) {
@@ -110,17 +121,6 @@ class HomeScreen extends PureComponent {
 
 			return
 		}
-
-		// For Sales History
-		const saleCopy = {
-			index: parseInt(saleHistory.length + 1),
-			num: parseInt(saleNum),
-			price: parseInt(salePrice)
-		}
-
-		this.setState({
-			saleHistory: [saleCopy, ...saleHistory]
-		})
 
 		// Recursively calculate profit
 		if (saleNumInt <= purchaseNumInt) {
