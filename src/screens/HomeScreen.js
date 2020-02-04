@@ -67,7 +67,6 @@ class HomeScreen extends PureComponent {
 
 	changeSaleShares = numShares => {
 		this.setState({
-			isValidSaleNum: true,
 			saleNum: numShares
 		})
 	}
@@ -80,6 +79,7 @@ class HomeScreen extends PureComponent {
 
 	calculateProfit = (purchasesParam, saleNumParam, salePriceParam, profitParam = 0 || this.state.profit) => {
 		const {
+			isValidSaleNum,
 			profit,
 			purchases,
 			saleHistory,
@@ -93,30 +93,24 @@ class HomeScreen extends PureComponent {
 		let saleNumInt = parseInt(saleNumParam),
 		purchaseNumInt = parseInt(purchasesParam[purchasesParam.length - 1].num)
 
-		// For Sales History
-		const saleCopy = {
-			index: parseInt(saleHistory.length + 1),
-			num: parseInt(saleNum),
-			price: parseInt(salePrice)
-		}
-
-		this.setState({
-			saleHistory: [saleCopy, ...saleHistory]
-		})
-
 		// Base case
 		if (saleNumInt === 0) {
+			// For Sales History
+			const saleCopy = {
+				index: parseInt(saleHistory.length + 1),
+				num: parseInt(saleNum),
+				price: parseInt(salePrice)
+			}
+
 			this.setState({
+				isValidSaleNum: true,
 				profit: profitParam,
-				purchases: purchasesParam
+				purchases: purchasesParam,
+				saleHistory: [saleCopy, ...saleHistory]
 			})
 
 			if (purchaseNumInt === 0) {
 				purchasesParam.length--
-
-				this.setState({
-					purchaseNum: ''
-				})
 			}
 
 			return
