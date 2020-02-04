@@ -1,6 +1,6 @@
 import React from 'react'
 import { FlatList, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 import { grayDark, grayXLight, white } from '../utils/styles/colors'
 import { app } from '../utils/styles/app'
@@ -32,7 +32,7 @@ const HistoryScreen = props => {
         <View style={app.container}>
 			<BackBtn onPress={this.toHome}>
 				{ Platform.OS === 'ios' ?
-					<BackBtnView>
+					<InlineView>
 						<Ionicons
 							color={white}
 			                name='ios-arrow-back'
@@ -42,9 +42,9 @@ const HistoryScreen = props => {
 						<Text
 							style={[fonts.h1, fonts.text]}>History
 						</Text>
-					</BackBtnView>
+					</InlineView>
 					:
-					<BackBtnView>
+					<InlineView>
 					    <Ionicons
 			                color={white}
 			                name='md-arrow-round-back'
@@ -54,12 +54,28 @@ const HistoryScreen = props => {
 						<Text
 							style={[fonts.h1, fonts.text]}>History
 						</Text>
-					</BackBtnView>
+					</InlineView>
 	    		}
 			</BackBtn>
 
             <HistoryView>
-        		<HistoryText style={[fonts.h2, styles.h2]}>Purchases</HistoryText>
+            	<InlineView>
+	        		<HistoryText style={[fonts.h2, styles.h2]}>Purchases</HistoryText>
+
+	        		<MaterialCommunityIcons
+						color={white}
+		                name='sort-descending'
+		                size={RFPercentage(4)}
+		                style={styles.sort}
+					/>
+
+	        		<MaterialCommunityIcons
+						color={white}
+		                name='sort-ascending'
+		                size={RFPercentage(4)}
+		                style={styles.sort}
+					/>
+				</InlineView>
 
         		<FlatList
         			data={purchaseHistory}
@@ -73,7 +89,23 @@ const HistoryScreen = props => {
         	<HistoryView>
 	        	{ saleHistory.length > 0 &&
 	        		<View>
-		            	<HistoryText style={[fonts.h2, styles.h2]}>Sales</HistoryText>
+	        			<InlineView>
+			            	<HistoryText style={[fonts.h2, styles.h2]}>Sales</HistoryText>
+
+			        		<MaterialCommunityIcons
+								color={white}
+				                name='sort-descending'
+				                size={RFPercentage(4)}
+				                style={styles.sort}
+							/>
+
+			        		<MaterialCommunityIcons
+								color={white}
+				                name='sort-ascending'
+				                size={RFPercentage(4)}
+				                style={styles.sort}
+							/>
+						</InlineView>
 
 		            	<FlatList
 		        			data={saleHistory}
@@ -98,7 +130,7 @@ const HistoryScreen = props => {
 const BackBtn = styled.TouchableOpacity`
 		align-items: center
 	`,
-	BackBtnView = styled.View`
+	InlineView = styled.View`
         flex-direction: row
 	`,
 	HistoryView = styled.View`
@@ -123,7 +155,11 @@ const BackBtn = styled.TouchableOpacity`
 
 const styles = StyleSheet.create({
 	h2: {
+		flex: 1,
 		marginBottom: 10
+	},
+	sort: {
+		marginLeft: 10
 	}
 })
 
