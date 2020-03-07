@@ -1,19 +1,33 @@
-import React from 'react'
-import { FlatList, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { Component } from 'react'
+import { FlatList, Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { RFPercentage } from 'react-native-responsive-fontsize'
+import styled from 'styled-components/native'
+import { withNavigation } from 'react-navigation'
+import { connect } from 'react-redux'
+
 import { grayDark, grayXLight, white } from '../utils/styles/colors'
 import { app } from '../utils/styles/app'
 import { fonts } from '../utils/styles/fonts'
-import styled from 'styled-components/native'
 
-const HistoryScreen = props => {
-	const { profit, purchaseHistory, saleHistory } = props.navigation.state.params
+class HistoryScreen extends Component {
+	state = {
+		sortPurchasesDesc: true
+	}
 
 	toHome = () => {
-        const { navigation } = props
+        const { navigation } = this.props
 
         navigation.navigate('Home')
+    }
+
+    sortPurchases = () => {
+    	const { purchaseHistory } = this.props.navigation.state.params
+
+		this.setState(prevState => ({
+			sortPurchasesDesc: !prevState.sortPurchasesDesc,
+			purchaseHistory: purchaseHistory.reverse()
+		}))
     }
 
 	renderItem = ({ item, index }) => (
@@ -28,103 +42,114 @@ const HistoryScreen = props => {
 		</FlatListView>
 	)
 
-	return (
-        <View style={app.container}>
-			<BackBtn onPress={this.toHome}>
-				{ Platform.OS === 'ios' ?
-					<InlineView>
-						<Ionicons
-							color={white}
-			                name='ios-arrow-back'
-			                size={RFPercentage(5)}
-						/>
+	render () {
+		const { profit } = this.props.navigation.state.params,
+			{ sortPurchasesDesc } = this.state,
+			{ purchaseHistory, saleHistory } = this.props
 
-						<Text
-							style={[fonts.h1, fonts.text]}>History
-						</Text>
-					</InlineView>
-					:
-					<InlineView>
-					    <Ionicons
-			                color={white}
-			                name='md-arrow-round-back'
-			                size={RFPercentage(5)}
-			    		/>
-
-						<Text
-							style={[fonts.h1, fonts.text]}>History
-						</Text>
-					</InlineView>
-	    		}
-			</BackBtn>
-
-            <HistoryView>
-            	<InlineView>
-	        		<HistoryText style={[fonts.h2, styles.h2]}>Purchases</HistoryText>
-
-	        		<MaterialCommunityIcons
-						color={white}
-		                name='sort-descending'
-		                size={RFPercentage(4)}
-		                style={styles.sort}
-					/>
-
-	        		<MaterialCommunityIcons
-						color={white}
-		                name='sort-ascending'
-		                size={RFPercentage(4)}
-		                style={styles.sort}
-					/>
-				</InlineView>
-
-        		<FlatList
-        			data={purchaseHistory}
-        			renderItem={this.renderItem}
-        			keyExtractor={
-                        (purchase, index) => index.toString()
-                    }>
-            	</FlatList>
-        	</HistoryView>
-
-        	<HistoryView>
-	        	{ saleHistory.length > 0 &&
-	        		<View>
-	        			<InlineView>
-			            	<HistoryText style={[fonts.h2, styles.h2]}>Sales</HistoryText>
-
-			        		<MaterialCommunityIcons
+		return (
+	        <View style={app.container}>
+				<BackBtn onPress={this.toHome}>
+					{ Platform.OS === 'ios' ?
+						<InlineView>
+							<Ionicons
 								color={white}
-				                name='sort-descending'
-				                size={RFPercentage(4)}
-				                style={styles.sort}
+				                name='ios-arrow-back'
+				                size={RFPercentage(5)}
 							/>
 
-			        		<MaterialCommunityIcons
-								color={white}
-				                name='sort-ascending'
-				                size={RFPercentage(4)}
-				                style={styles.sort}
-							/>
+							<Text
+								style={[fonts.h1, fonts.text]}>History
+							</Text>
 						</InlineView>
+						:
+						<InlineView>
+						    <Ionicons
+				                color={white}
+				                name='md-arrow-round-back'
+				                size={RFPercentage(5)}
+				    		/>
 
-		            	<FlatList
-		        			data={saleHistory}
-		        			renderItem={this.renderItem}
-		        			keyExtractor={
-		                        (sale, index) => index.toString()
-		                    }>
-		            	</FlatList>
-	            	</View>
-            	}
-        	</HistoryView>
+							<Text
+								style={[fonts.h1, fonts.text]}>History
+							</Text>
+						</InlineView>
+		    		}
+				</BackBtn>
 
-			<TextContainer>
-				<Text
-					style={[fonts.h2, fonts.profit, fonts.text]}>Profit: {profit}
-				</Text>
-			</TextContainer>
-        </View>
-	)
+	            <HistoryView>
+	            	<InlineView>
+		        		<HistoryText style={[fonts.h2, styles.h2]}>Purchases</HistoryText>
+
+		        		<TouchableOpacity
+		        			onPress={() => this.sortPurchases()}>
+			        		{ sortPurchasesDesc ?
+				        		<MaterialCommunityIcons
+									color={white}
+					                name='sort-descending'
+					                size={RFPercentage(4)}
+					                style={styles.sort}
+								/>
+								:
+				        		<MaterialCommunityIcons
+									color={white}
+					                name='sort-ascending'
+					                size={RFPercentage(4)}
+					                style={styles.sort}
+								/>
+							}
+						</TouchableOpacity>
+					</InlineView>
+
+	        		<FlatList
+	        			data={purchaseHistory}
+	        			renderItem={this.renderItem}
+	        			keyExtractor={
+	                        (purchase, index) => index.toString()
+	                    }>
+	            	</FlatList>
+	        	</HistoryView>
+
+	        	<HistoryView>
+		        	{ saleHistory.length > 0 &&
+		        		<View>
+		        			<InlineView>
+				            	<HistoryText style={[fonts.h2, styles.h2]}>Sales</HistoryText>
+
+				        		<MaterialCommunityIcons
+									color={white}
+					                name='sort-descending'
+					                size={RFPercentage(4)}
+					                style={styles.sort}
+								/>
+
+				        		<MaterialCommunityIcons
+									color={white}
+					                name='sort-ascending'
+					                size={RFPercentage(4)}
+					                style={styles.sort}
+								/>
+							</InlineView>
+
+			            	<FlatList
+			        			data={saleHistory}
+			        			renderItem={this.renderItem}
+			        			keyExtractor={
+			                        (sale, index) => index.toString()
+			                    }>
+			            	</FlatList>
+		            	</View>
+	            	}
+	        	</HistoryView>
+
+				<TextContainer>
+					<Text
+						style={[fonts.h2, fonts.profit, fonts.text]}>Profit: {profit}
+					</Text>
+				</TextContainer>
+	        </View>
+		)
+	}
 }
 
 const BackBtn = styled.TouchableOpacity`
@@ -163,4 +188,11 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default HistoryScreen
+const mapStateToProps = state => {
+    return {
+        purchaseHistory: state.purchaseHistory,
+        saleHistory: state.saleHistory
+    }
+}
+
+export default withNavigation( connect(mapStateToProps)(HistoryScreen) )

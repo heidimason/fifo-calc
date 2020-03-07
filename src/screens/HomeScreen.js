@@ -1,5 +1,10 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import styled from 'styled-components/native'
+import { withNavigation } from 'react-navigation'
+import { connect } from 'react-redux'
+// import serializeForm from 'form-serialize'
+
 import NumShares from '../components/NumShares'
 import PriceOfShares from '../components/PriceOfShares'
 import TextInputError from '../components/TextInputError'
@@ -10,17 +15,16 @@ import { app } from '../utils/styles/app'
 import { btns } from '../utils/styles/btns'
 import { fonts } from '../utils/styles/fonts'
 import { forms } from '../utils/styles/forms'
-import styled from 'styled-components/native'
+import { addPurchase } from '../actions/PurchaseHistory'
+import { addSale } from '../actions/SaleHistory'
 
-class HomeScreen extends PureComponent {
+class HomeScreen extends Component {
 	state = {
 		isValidSaleNum: true,
 		profit: 0,
-		purchaseHistory: [],
 		purchases: [],
 		purchaseNum: '',
 		purchasePrice: '',
-		saleHistory: [],
 		saleNum: '',
 		salePrice: ''
 	}
@@ -37,31 +41,40 @@ class HomeScreen extends PureComponent {
 		})
 	}
 
-	submitPurchase = () => {
-		const { purchaseHistory, purchases, purchaseNum, purchasePrice } = this.state
+	submitPurchase = e => {
+		// e.preventDefault()
+
+		// const values = serializeForm(e.target, { hash: true })
+
+		const { purchases, purchaseNum, purchasePrice } = this.state,
+			 { purchaseHistory, updatePurchaseHistory } = this.props
 
 		const purchase = {
-			index: parseInt(purchaseHistory.length + 1),
 			num: parseInt(purchaseNum),
 			price: parseInt(purchasePrice)
-		},
+		}
 
-		purchaseCopy = JSON.parse( JSON.stringify(purchase) )
+		// const purchaseCopy = Object.assign(values, {
+		// 	index: parseInt(purchaseHistory.length + 1),
+		// 	num: parseInt(purchaseNum),
+		// 	price: parseInt(purchasePrice)
+		// })
+
+		const purchaseCopy = JSON.parse( JSON.stringify(purchase) )
 
 		this.setState({
-			purchaseHistory: [purchaseCopy, ...purchaseHistory],
 			purchases: [purchase, ...purchases]
 		})
+
+		updatePurchaseHistory(purchaseCopy)
 	}
 
 	toHistory = () => {
-        const { profit, purchaseHistory, saleHistory } = this.state,
-        								{ navigation } = this.props
+        const { profit } = this.state,
+		  { navigation } = this.props
 
         navigation.navigate('History', {
-        	profit,
-        	purchaseHistory,
-        	saleHistory
+        	profit
         })
     }
 
@@ -82,10 +95,11 @@ class HomeScreen extends PureComponent {
 			isValidSaleNum,
 			profit,
 			purchases,
-			saleHistory,
 			saleNum,
 			salePrice
 		} = this.state
+
+		const { saleHistory } = this.props
 
 		const salePriceInt = parseInt(salePriceParam),
 		  purchasePriceInt = parseInt(purchasesParam[purchasesParam.length - 1].price)
@@ -152,11 +166,9 @@ class HomeScreen extends PureComponent {
 		this.setState({
 			isValidSaleNum: true,
 			profit: 0,
-			purchaseHistory: [],
 			purchases: [],
 			purchaseNum: '',
 			purchasePrice: '',
-			saleHistory: [],
 			saleNum: '',
 			salePrice: ''
 		})
@@ -168,14 +180,14 @@ class HomeScreen extends PureComponent {
 		const {
 			isValidSaleNum,
 			profit,
-			purchaseHistory,
 			purchases,
 			purchaseNum,
 			purchasePrice,
-			saleHistory,
 			saleNum,
 			salePrice
-		} = this.state
+		} = this.state,
+
+		{ purchaseHistory } = this.props
 
 		return (
 			<View style={app.container}>
@@ -376,4 +388,18 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default HomeScreen
+const mapStateToProps = state => {
+    return {
+        purchaseHistory: state.purchaseHistory,
+        saleHistory: state.saleHistory
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        updatePurchaseHistory: purchase => dispatch( addPurchase(purchase) ),
+        updateSaleHistory: sale => dispatch( addSale(sale) )
+    }
+}
+
+export default withNavigation( connect(mapStateToProps, mapDispatchToProps)(HomeScreen) )
