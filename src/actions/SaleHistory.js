@@ -1,6 +1,6 @@
 export const ADD_SALE = 'ADD_SALE',
 		  CLEAR_SALES = 'CLEAR_SALES',
-		   SORT_SALES = 'SORT_SALES'
+		REVERSE_SALES = 'REVERSE_SALES'
 
 export const addSale = type => {
 	    return {
@@ -16,9 +16,9 @@ export const addSale = type => {
 	    }
 	},
 
-	sortSales = type => {
+	reverseSales = type => {
 	    return {
-	        type: SORT_SALES,
+	        type: REVERSE_SALES,
 	        payload: type
 	    }
 	}

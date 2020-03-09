@@ -9,10 +9,13 @@ import { connect } from 'react-redux'
 import { grayDark, grayXLight, white } from '../utils/styles/colors'
 import { app } from '../utils/styles/app'
 import { fonts } from '../utils/styles/fonts'
+import { reversePurchases } from '../actions/PurchaseHistory'
+import { reverseSales } from '../actions/SaleHistory'
 
 class HistoryScreen extends Component {
 	state = {
-		sortPurchasesDesc: true
+		sortPurchasesAsc: true,
+		sortSalesAsc: true
 	}
 
 	toHome = () => {
@@ -22,11 +25,22 @@ class HistoryScreen extends Component {
     }
 
     sortPurchases = () => {
-    	const { purchaseHistory } = this.props.navigation.state.params
+    	const { sortPurchaseHistory } = this.props
+
+    	sortPurchaseHistory()
 
 		this.setState(prevState => ({
-			sortPurchasesDesc: !prevState.sortPurchasesDesc,
-			purchaseHistory: purchaseHistory.reverse()
+			sortPurchasesAsc: !prevState.sortPurchasesAsc
+		}))
+    }
+
+    sortSales = () => {
+    	const { sortSaleHistory } = this.props
+
+    	sortSaleHistory()
+
+		this.setState(prevState => ({
+			sortSalesAsc: !prevState.sortSalesAsc
 		}))
     }
 
@@ -43,9 +57,9 @@ class HistoryScreen extends Component {
 	)
 
 	render () {
-		const { profit } = this.props.navigation.state.params,
-			{ sortPurchasesDesc } = this.state,
-			{ purchaseHistory, saleHistory } = this.props
+		const { sortPurchasesAsc, sortSalesAsc } = this.state,
+				  { purchaseHistory, saleHistory } = this.props,
+										{ profit } = this.props.navigation.state.params
 
 		return (
 	        <View style={app.container}>
@@ -82,8 +96,8 @@ class HistoryScreen extends Component {
 		        		<HistoryText style={[fonts.h2, styles.h2]}>Purchases</HistoryText>
 
 		        		<TouchableOpacity
-		        			onPress={() => this.sortPurchases()}>
-			        		{ sortPurchasesDesc ?
+		        			onPress={this.sortPurchases}>
+			        		{ sortPurchasesAsc ?
 				        		<MaterialCommunityIcons
 									color={white}
 					                name='sort-descending'
@@ -116,19 +130,24 @@ class HistoryScreen extends Component {
 		        			<InlineView>
 				            	<HistoryText style={[fonts.h2, styles.h2]}>Sales</HistoryText>
 
-				        		<MaterialCommunityIcons
-									color={white}
-					                name='sort-descending'
-					                size={RFPercentage(4)}
-					                style={styles.sort}
-								/>
-
-				        		<MaterialCommunityIcons
-									color={white}
-					                name='sort-ascending'
-					                size={RFPercentage(4)}
-					                style={styles.sort}
-								/>
+								<TouchableOpacity
+			        				onPress={this.sortSales}>
+			        				{ sortSalesAsc ?
+						        		<MaterialCommunityIcons
+											color={white}
+							                name='sort-descending'
+							                size={RFPercentage(4)}
+							                style={styles.sort}
+										/>
+										:
+						        		<MaterialCommunityIcons
+											color={white}
+							                name='sort-ascending'
+							                size={RFPercentage(4)}
+							                style={styles.sort}
+										/>
+									}
+								</TouchableOpacity>
 							</InlineView>
 
 			            	<FlatList
@@ -195,4 +214,11 @@ const mapStateToProps = state => {
     }
 }
 
-export default withNavigation( connect(mapStateToProps)(HistoryScreen) )
+const mapDispatchToProps = dispatch => {
+    return {
+    	sortPurchaseHistory: () => dispatch( reversePurchases() ),
+    	sortSaleHistory: () => dispatch( reverseSales() )
+    }
+}
+
+export default withNavigation( connect(mapStateToProps, mapDispatchToProps)(HistoryScreen) )

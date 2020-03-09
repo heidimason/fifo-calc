@@ -1,6 +1,6 @@
 export const ADD_PURCHASE = 'ADD_PURCHASE',
 		  CLEAR_PURCHASES = 'CLEAR_PURCHASES',
-		   SORT_PURCHASES = 'SORT_PURCHASES'
+		REVERSE_PURCHASES = 'REVERSE_PURCHASES'
 
 export const addPurchase = type => {
 	    return {
@@ -16,9 +16,9 @@ export const addPurchase = type => {
 	    }
 	},
 
-	sortPurchases = type => {
+	reversePurchases = type => {
 	    return {
-	        type: SORT_PURCHASES,
+	        type: REVERSE_PURCHASES,
 	        payload: type
 	    }
 	}

@@ -1,7 +1,7 @@
 import {
 	ADD_PURCHASE,
 	CLEAR_PURCHASES,
-	SORT_PURCHASES
+	REVERSE_PURCHASES
 } from '../actions/PurchaseHistory'
 
 const purchaseHistory = (state = [], action) => {
@@ -10,7 +10,7 @@ const purchaseHistory = (state = [], action) => {
 			return state.concat(action.payload)
 		case CLEAR_PURCHASES:
 			return []
-		case SORT_PURCHASES:
+		case REVERSE_PURCHASES:
 			return state.reverse()
 		default:
 			return state

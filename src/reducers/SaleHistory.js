@@ -1,7 +1,7 @@
 import {
 	ADD_SALE,
 	CLEAR_SALES,
-	SORT_SALES
+	REVERSE_SALES
 } from '../actions/SaleHistory'
 
 const saleHistory = (state = [], action) => {
@@ -10,7 +10,7 @@ const saleHistory = (state = [], action) => {
 			return state.concat(action.payload)
 		case CLEAR_SALES:
 			return []
-		case SORT_SALES:
+		case REVERSE_SALES:
 			return state.reverse()
 		default:
 			return state
