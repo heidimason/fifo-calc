@@ -14,8 +14,8 @@ import { app } from '../utils/styles/app'
 import { btns } from '../utils/styles/btns'
 import { fonts } from '../utils/styles/fonts'
 import { forms } from '../utils/styles/forms'
-import { addPurchase } from '../actions/PurchaseHistory'
-import { addSale } from '../actions/SaleHistory'
+import { addPurchase, clearPurchases } from '../actions/PurchaseHistory'
+import { addSale, clearSales } from '../actions/SaleHistory'
 
 class HomeScreen extends Component {
 	state = {
@@ -158,6 +158,8 @@ class HomeScreen extends Component {
 	}
 
 	resetAll = () => {
+		const { resetPurchaseHistory, resetSaleHistory } = this.props
+
 		this.setState({
 			isValidSaleNum: true,
 			profit: 0,
@@ -167,6 +169,9 @@ class HomeScreen extends Component {
 			saleNum: '',
 			salePrice: ''
 		})
+
+		resetPurchaseHistory()
+		resetSaleHistory()
 	}
 
 	render () {
@@ -392,6 +397,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+    	resetPurchaseHistory: () => dispatch( clearPurchases() ),
+    	resetSaleHistory: () => dispatch( clearSales() ),
         updatePurchaseHistory: purchase => dispatch( addPurchase(purchase) ),
         updateSaleHistory: sale => dispatch( addSale(sale) )
     }
