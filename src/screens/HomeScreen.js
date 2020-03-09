@@ -49,10 +49,8 @@ class HomeScreen extends Component {
 			price: parseInt(purchasePrice)
 		}
 
-		// const purchaseCopy = JSON.parse( JSON.stringify(purchase) )
-
 		const purchaseCopy = {
-			// index: parseInt(purchaseHistory.length + 1),
+			index: parseInt(purchaseHistory.length + 1),
 			num: parseInt(purchaseNum),
 			price: parseInt(purchasePrice)
 		}
@@ -94,7 +92,7 @@ class HomeScreen extends Component {
 			salePrice
 		} = this.state
 
-		const { saleHistory } = this.props
+		const { saleHistory, updateSaleHistory } = this.props
 
 		const salePriceInt = parseInt(salePriceParam),
 		  purchasePriceInt = parseInt(purchasesParam[purchasesParam.length - 1].price)
@@ -104,18 +102,18 @@ class HomeScreen extends Component {
 
 		// Base case
 		if (saleNumInt === 0) {
-			// For Sales History
 			const saleCopy = {
 				index: parseInt(saleHistory.length + 1),
 				num: parseInt(saleNum),
 				price: parseInt(salePrice)
 			}
 
+			updateSaleHistory(saleCopy)
+
 			this.setState({
 				isValidSaleNum: true,
 				profit: profitParam,
-				purchases: purchasesParam,
-				saleHistory: [saleCopy, ...saleHistory]
+				purchases: purchasesParam
 			})
 
 			if (purchaseNumInt === 0) {
