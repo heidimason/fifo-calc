@@ -6,9 +6,7 @@ import {
 const purchaseHistory = (state = [], action) => {
 	switch (action.type) {
 		case ADD_PURCHASE:
-			return [
-				{...state, ...action.purchase}
-			]
+			return state.concat(action.payload)
 		case SORT_PURCHASES:
 			return state.reverse()
 		default:

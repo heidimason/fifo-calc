@@ -3,7 +3,6 @@ import { Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'r
 import styled from 'styled-components/native'
 import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux'
-// import serializeForm from 'form-serialize'
 
 import NumShares from '../components/NumShares'
 import PriceOfShares from '../components/PriceOfShares'
@@ -41,11 +40,7 @@ class HomeScreen extends Component {
 		})
 	}
 
-	submitPurchase = e => {
-		// e.preventDefault()
-
-		// const values = serializeForm(e.target, { hash: true })
-
+	submitPurchase = () => {
 		const { purchases, purchaseNum, purchasePrice } = this.state,
 			 { purchaseHistory, updatePurchaseHistory } = this.props
 
@@ -54,13 +49,13 @@ class HomeScreen extends Component {
 			price: parseInt(purchasePrice)
 		}
 
-		// const purchaseCopy = Object.assign(values, {
-		// 	index: parseInt(purchaseHistory.length + 1),
-		// 	num: parseInt(purchaseNum),
-		// 	price: parseInt(purchasePrice)
-		// })
+		// const purchaseCopy = JSON.parse( JSON.stringify(purchase) )
 
-		const purchaseCopy = JSON.parse( JSON.stringify(purchase) )
+		const purchaseCopy = {
+			// index: parseInt(purchaseHistory.length + 1),
+			num: parseInt(purchaseNum),
+			price: parseInt(purchasePrice)
+		}
 
 		this.setState({
 			purchases: [purchase, ...purchases]
