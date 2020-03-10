@@ -58,8 +58,8 @@ class HistoryScreen extends Component {
 
 	render () {
 		const { sortPurchasesAsc, sortSalesAsc } = this.state,
-				  { purchaseHistory, saleHistory } = this.props,
-										{ profit } = this.props.navigation.state.params
+				{ purchaseHistory, saleHistory } = this.props,
+									  { profit } = this.props.navigation.state.params
 
 		return (
 	        <View style={app.container}>
@@ -95,24 +95,26 @@ class HistoryScreen extends Component {
 	            	<InlineView>
 		        		<HistoryText style={[fonts.h2, styles.h2]}>Purchases</HistoryText>
 
-		        		<TouchableOpacity
-		        			onPress={this.sortPurchases}>
-			        		{ sortPurchasesAsc ?
-				        		<MaterialCommunityIcons
-									color={white}
-					                name='sort-descending'
-					                size={RFPercentage(4)}
-					                style={styles.sort}
-								/>
-								:
-				        		<MaterialCommunityIcons
-									color={white}
-					                name='sort-ascending'
-					                size={RFPercentage(4)}
-					                style={styles.sort}
-								/>
-							}
-						</TouchableOpacity>
+		        		{ purchaseHistory.length > 1 &&
+			        		<TouchableOpacity
+			        			onPress={this.sortPurchases}>
+				        		{ sortPurchasesAsc ?
+					        		<MaterialCommunityIcons
+										color={white}
+						                name='sort'
+						                size={RFPercentage(4)}
+						                style={styles.sort}
+									/>
+									:
+					        		<MaterialCommunityIcons
+										color={white}
+						                name='sort'
+						                size={RFPercentage(4)}
+						                style={styles.sort}
+									/>
+								}
+							</TouchableOpacity>
+						}
 					</InlineView>
 
 	        		<FlatList
@@ -130,24 +132,26 @@ class HistoryScreen extends Component {
 		        			<InlineView>
 				            	<HistoryText style={[fonts.h2, styles.h2]}>Sales</HistoryText>
 
-								<TouchableOpacity
-			        				onPress={this.sortSales}>
-			        				{ sortSalesAsc ?
-						        		<MaterialCommunityIcons
-											color={white}
-							                name='sort-descending'
-							                size={RFPercentage(4)}
-							                style={styles.sort}
-										/>
-										:
-						        		<MaterialCommunityIcons
-											color={white}
-							                name='sort-ascending'
-							                size={RFPercentage(4)}
-							                style={styles.sort}
-										/>
-									}
-								</TouchableOpacity>
+				            	{ saleHistory.length > 1 &&
+									<TouchableOpacity
+				        				onPress={this.sortSales}>
+				        				{ sortSalesAsc ?
+							        		<MaterialCommunityIcons
+												color={white}
+								                name='sort'
+								                size={RFPercentage(4)}
+								                style={styles.sort}
+											/>
+											:
+							        		<MaterialCommunityIcons
+												color={white}
+								                name='sort'
+								                size={RFPercentage(4)}
+								                style={styles.sort}
+											/>
+										}
+									</TouchableOpacity>
+								}
 							</InlineView>
 
 			            	<FlatList
