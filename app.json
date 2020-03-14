@@ -10,7 +10,7 @@
       "android",
       "web"
     ],
-    "version": "2.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -30,7 +30,9 @@
     },
     "android": {
 			"package": "com.heidimason.fifocalculator",
-			"permissions": []
-		}
+			"permissions": [],
+			"versionCode": 4
+		},
+		"githubUrl": "https://github.com/heidimason/fifo-calc"
   }
 }
