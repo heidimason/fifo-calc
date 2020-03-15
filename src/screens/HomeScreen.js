@@ -358,8 +358,9 @@ const TextContainer = styled.View`
 	`,
 	HistoryBtn = styled.TouchableOpacity`
 		align-self: flex-end
-		top: 10
+		top: 18
 		transform: rotate(270deg)
+		zIndex: 1
 	`,
 	HistoryText = styled.Text`
 		align-self: center
