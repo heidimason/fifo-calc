@@ -17,3 +17,6 @@ yarn-error.log*
 
 # misc
 .DS_Store
+
+# testing
+src/__tests__/__snapshots__
