@@ -1,7 +1,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import FifoCalculator from '../../App'
+import FifoCalculator from './App'
 
 describe('<FifoCalculator />', () => {
 	const tree = renderer.create(<FifoCalculator />).toJSON()
