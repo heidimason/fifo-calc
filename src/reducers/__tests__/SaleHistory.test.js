@@ -1,16 +1,56 @@
-import saleHistory from '../SaleHistory'
+import saleHistoryReducer from '../SaleHistory'
 import {
 	ADD_SALE,
 	REVERSE_SALES
 } from '../../actions/SaleHistory'
 
-it('handles actions of type ADD_SALE', () => {
-	const action = {
-		type: ADD_SALE,
-		payload: 'New Sale'
-	},
+describe('Sale History Reducer', () => {
+	it('returns the initial state', () => {
+		const expected = []
 
-	newState = saleHistory([], action)
+		expect( saleHistoryReducer(undefined, []) ).toEqual(expected)
+	})
 
-	expect(newState).toEqual(['New Sale'])
+	it('handles actions of type ADD_SALE', () => {
+		const action = {
+			type: ADD_SALE,
+			payload: 'New SALE'
+		},
+
+		expected = ['New SALE'],
+
+		newState = saleHistoryReducer([], action)
+
+		expect(newState).toEqual(expected)
+	})
+
+	it('handles actions of type REVERSE_SALES', () => {
+		const action = {
+			type: REVERSE_SALES
+		},
+
+		expected = [
+			{
+				num: 20,
+				price: 35
+			},
+			{
+				num: 80,
+				price: 35
+			}
+		],
+
+		initialState = [
+			{
+				num: 80,
+				price: 35
+			},
+			{
+				num: 20,
+				price: 35
+			}
+		]
+
+		expect( saleHistoryReducer(initialState, action) ).toEqual(expected)
+	})
 })

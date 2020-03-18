@@ -75,5 +75,3 @@ describe('Purchase History Reducer', () => {
 		expect( purchaseHistoryReducer(initialState, action) ).toEqual(expected)
 	})
 })
-
-
