@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import styled from 'styled-components/native'
-import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux'
 
 import NumShares from '../components/NumShares'
@@ -403,4 +402,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default withNavigation( connect(mapStateToProps, mapDispatchToProps)(HomeScreen) )
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)

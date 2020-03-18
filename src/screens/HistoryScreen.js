@@ -3,7 +3,6 @@ import { FlatList, Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 import styled from 'styled-components/native'
-import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux'
 
 import { grayDark, grayXLight, white } from '../utils/styles/colors'
@@ -225,4 +224,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default withNavigation( connect(mapStateToProps, mapDispatchToProps)(HistoryScreen) )
+export default connect(mapStateToProps, mapDispatchToProps)(HistoryScreen)
