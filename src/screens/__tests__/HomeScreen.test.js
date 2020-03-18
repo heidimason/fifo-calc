@@ -1,23 +1,38 @@
+import 'jsdom-global/register'
 import React from 'react'
-import renderer from 'react-test-renderer'
+// import renderer from 'react-test-renderer'
+import { mount, configure } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
+import toJson from 'enzyme-to-json'
+import sinon from 'sinon'
 
 import Root from '../../../Root'
 import HomeScreen from '../HomeScreen'
 
+configure({
+	adapter: new Adapter
+})
+
 describe('<HomeScreen />', () => {
-	const tree = renderer.create(
+	let wrapper = mount(
 		<Root>
 			<HomeScreen />
 		</Root>
-	).toJSON()
+	)
 
-	it('renders correctly', () => {
-		expect(tree).toMatchSnapshot()
-	})
+	// const tree = renderer.create(
+	// 	<Root>
+	// 		<HomeScreen />
+	// 	</Root>
+	// ).toJSON()
 
-	it('has 1 child', () => {
-		expect(tree.children.length).toBe(8)
-	})
+	// it('renders correctly', () => {
+	// 	expect(tree).toMatchSnapshot()
+	// })
+
+	// it('has 1 child', () => {
+	// 	expect(tree.children.length).toBe(8)
+	// })
 })
 
 // describe('functions exist', () => {
