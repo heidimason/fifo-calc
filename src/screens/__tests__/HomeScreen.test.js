@@ -20,6 +20,20 @@ describe('<HomeScreen />', () => {
 		</Root>
 	)
 
+	beforeEach( () => {
+		wrapper.setProps({
+			addPurchase: sinon.spy()
+		})
+	})
+
+	// it('mounts and renders app without errors', () => {
+ //    	sinon.spy(HomeScreen.prototype, 'componentDidMount')
+ //    	mount(<Root><HomeScreen /></Root>)
+
+ //    	expect(HomeScreen.prototype.componentDidMount.calledOnce).toBeTruthy()
+ //    	expect( toJson(wrapper) ).toMatchSnapshot()
+  // })
+
 	// const tree = renderer.create(
 	// 	<Root>
 	// 		<HomeScreen />
