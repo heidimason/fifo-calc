@@ -1,0 +1,425 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<HomeScreen /> renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#222",
+      "flex": 1,
+      "justifyContent": "space-around",
+    }
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "marginTop": 30,
+          },
+          Object {
+            "fontSize": 53,
+          },
+          Object {
+            "color": "#fff",
+            "marginHorizontal": 40,
+          },
+        ]
+      }
+    >
+      FIFO Profit Calculator
+    </Text>
+  </View>
+  <View>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 40,
+          },
+          Object {
+            "color": "#fff",
+            "marginHorizontal": 40,
+          },
+          Object {
+            "marginBottom": 10,
+          },
+        ]
+      }
+    >
+      Purchase
+    </Text>
+    <TextInput
+      allowFontScaling={true}
+      keyboardType="numeric"
+      placeholder="Number of Shares"
+      rejectResponderTermination={true}
+      selectionColor="#222"
+      style={
+        Array [
+          Object {
+            "marginBottom": 15,
+          },
+          Object {
+            "borderRadius": 7,
+          },
+          Object {
+            "borderColor": "transparent",
+            "borderWidth": 0,
+          },
+          Array [
+            Object {
+              "fontSize": 40,
+            },
+            Object {
+              "backgroundColor": "#fff",
+              "color": "#aaa",
+              "height": 45,
+              "marginHorizontal": 40,
+              "textAlign": "center",
+            },
+          ],
+        ]
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
+    <TextInput
+      allowFontScaling={true}
+      keyboardType="numeric"
+      placeholder="Price per Share"
+      rejectResponderTermination={true}
+      selectionColor="#222"
+      style={
+        Array [
+          Object {
+            "marginBottom": 15,
+          },
+          Object {
+            "borderRadius": 7,
+          },
+          Object {
+            "borderColor": "transparent",
+            "borderWidth": 0,
+          },
+          Array [
+            Object {
+              "fontSize": 40,
+            },
+            Object {
+              "backgroundColor": "#fff",
+              "color": "#aaa",
+              "height": 45,
+              "marginHorizontal": 40,
+              "textAlign": "center",
+            },
+          ],
+        ]
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#0099ff",
+        "borderRadius": 7,
+        "height": 45,
+        "justifyContent": "center",
+        "marginHorizontal": 40,
+        "opacity": 0.3,
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#fff",
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+          Object {
+            "fontSize": 40,
+          },
+        ]
+      }
+    >
+      Submit
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignSelf": "flex-end",
+        "height": 45,
+        "opacity": 0.3,
+        "top": 18,
+        "transform": Array [
+          Object {
+            "rotate": "270deg",
+          },
+        ],
+        "zIndex": 1,
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+            "backgroundColor": "#228b22",
+            "letterSpacing": 3,
+            "paddingHorizontal": 3,
+            "textTransform": "uppercase",
+            "top": 3,
+          },
+          Object {
+            "color": "#fff",
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+          Object {
+            "fontSize": 27,
+          },
+          Object {
+            "position": "absolute",
+          },
+        ]
+      }
+    >
+      History
+    </Text>
+  </View>
+  <View>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 40,
+          },
+          Object {
+            "color": "#fff",
+            "marginHorizontal": 40,
+          },
+          Object {
+            "marginBottom": 10,
+          },
+        ]
+      }
+    >
+      Sale
+    </Text>
+    <TextInput
+      allowFontScaling={true}
+      keyboardType="numeric"
+      placeholder="Number of Shares"
+      rejectResponderTermination={true}
+      selectionColor="#222"
+      style={
+        Array [
+          Object {
+            "marginBottom": 15,
+          },
+          Object {
+            "borderRadius": 7,
+          },
+          Object {
+            "borderColor": "transparent",
+            "borderWidth": 0,
+          },
+          Array [
+            Object {
+              "fontSize": 40,
+            },
+            Object {
+              "backgroundColor": "#fff",
+              "color": "#aaa",
+              "height": 45,
+              "marginHorizontal": 40,
+              "textAlign": "center",
+            },
+          ],
+        ]
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
+    <TextInput
+      allowFontScaling={true}
+      keyboardType="numeric"
+      placeholder="Price per Share"
+      rejectResponderTermination={true}
+      selectionColor="#222"
+      style={
+        Array [
+          Object {
+            "marginBottom": 15,
+          },
+          Object {
+            "borderRadius": 7,
+          },
+          Object {
+            "borderColor": "transparent",
+            "borderWidth": 0,
+          },
+          Array [
+            Object {
+              "fontSize": 40,
+            },
+            Object {
+              "backgroundColor": "#fff",
+              "color": "#aaa",
+              "height": 45,
+              "marginHorizontal": 40,
+              "textAlign": "center",
+            },
+          ],
+        ]
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#ffa500",
+        "borderRadius": 7,
+        "height": 45,
+        "justifyContent": "center",
+        "marginHorizontal": 40,
+        "opacity": 0.3,
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#fff",
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+          Object {
+            "fontSize": 40,
+          },
+        ]
+      }
+    >
+      Calculate
+    </Text>
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 40,
+          },
+          Object {
+            "letterSpacing": 1,
+            "marginBottom": 30,
+            "textTransform": "uppercase",
+          },
+          Object {
+            "color": "#fff",
+            "marginHorizontal": 40,
+          },
+        ]
+      }
+    >
+      Profit: 
+      0
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#ff0000",
+        "borderRadius": 7,
+        "height": 45,
+        "justifyContent": "center",
+        "marginBottom": 30,
+        "marginHorizontal": 40,
+        "opacity": 0.3,
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#fff",
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+          Object {
+            "fontSize": 40,
+          },
+        ]
+      }
+    >
+      Reset All
+    </Text>
+  </View>
+</View>
+`;

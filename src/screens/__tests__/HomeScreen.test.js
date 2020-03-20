@@ -8,6 +8,7 @@ import sinon from 'sinon'
 
 import Root from '../../../Root'
 import HomeScreen from '../HomeScreen'
+import calculateProfit from '../HomeScreen'
 
 configure({
 	adapter: new Adapter
@@ -49,35 +50,33 @@ describe('<HomeScreen />', () => {
 	// })
 })
 
-// describe('functions exist', () => {
-// 	test('function changePurchaseShares exists', () => {
-// 		expect(typeof changePurchaseShares).toEqual('function')
-// 	})
+describe('calculateProfit', () => {
+	it('is a function', () => {
+		expect(typeof calculateProfit).toEqual('object')
+	})
 
-// 	test('function changePurchasePrice exists', () => {
-// 		expect(typeof changePurchasePrice).toEqual('function')
-// 	})
+	it('calculates 1 purchase and 1 sale correctly', () => {
+		const purchases = [
+			{
+				num: 100,
+				price: 25
+			}
+		],
 
-// 	test('function submitPurchase exists', () => {
-// 		expect(typeof submitPurchase).toEqual('function')
-// 	})
+		saleNum = 80,
+		salePrice = 35
 
-// 	test('function changeSaleShares exists', () => {
-// 		expect(typeof changeSaleShares).toEqual('function')
-// 	})
+		let profit = 0
 
-// 	test('function changeSalePrice exists', () => {
-// 		expect(typeof changeSalePrice).toEqual('function')
-// 	})
+		HomeScreen.calculateProfit = jest.fn( () => profit )
 
-// 	test('function calculateProfit exists', () => {
-// 		expect(typeof calculateProfit).toEqual('function')
-// 	})
+		const result = HomeScreen.calculateProfit(purchases, saleNum, salePrice, profit),
 
-// 	test('function resetAll exists', () => {
-// 		expect(typeof resetAll).toEqual('function')
-// 	})
-// })
+		expected = 800
+
+		expect(result).toEqual(expected)
+	})
+})
 
 // describe('calculateProfit function', () => {
 // 	let wrapper
