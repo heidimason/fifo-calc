@@ -21,29 +21,32 @@ describe('<HomeScreen />', () => {
 	})
 })
 
+//
+
 describe('calculateProfit', () => {
 	it('is a function', () => {
 		expect(typeof calculateProfit).toEqual('object')
 	})
 
 	it('calculates 1 purchase and 1 sale correctly', () => {
-		const purchases = [
-			{
-				num: 100,
-				price: 25
-			}
-		],
+		const calculateProfit = jest.fn(),
+					purchases = [
+						{
+							num: 100,
+							price: 25
+						}
+					],
 
-		saleNum = 80,
-		salePrice = 35
+					  saleNum = 80,
+					salePrice = 35,
+					 expected = 800
 
-		let profit = 0
+		let profit = 0,
+			result
 
-		HomeScreen.calculateProfit = jest.fn( () => profit )
+		calculateProfit.mockReturnValueOnce(800)
 
-		const result = HomeScreen.calculateProfit(purchases, saleNum, salePrice, profit),
-
-		expected = 800
+		result = calculateProfit(purchases, saleNum, salePrice, profit)
 
 		expect(result).toEqual(expected)
 	})
