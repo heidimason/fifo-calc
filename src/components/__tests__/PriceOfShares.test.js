@@ -3,6 +3,7 @@ import renderer from 'react-test-renderer'
 
 import Root from '../../../Root'
 import PriceOfShares from '../PriceOfShares'
+import handlePriceChange from '../PriceOfShares'
 
 describe('<PriceOfShares />', () => {
 	const tree = renderer.create(
@@ -13,5 +14,13 @@ describe('<PriceOfShares />', () => {
 
 	it('renders correctly', () => {
 		expect(tree).toMatchSnapshot()
+	})
+})
+
+//
+
+describe('handlePriceChange', () => {
+	it('is a function', () => {
+		expect(typeof handlePriceChange).toEqual('function')
 	})
 })
