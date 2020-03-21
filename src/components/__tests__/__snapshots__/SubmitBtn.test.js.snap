@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SubmitBtn /> renders correctly 1`] = `
+<View
+  accessible={true}
+  focusable={false}
+  isTVSelectable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "justifyContent": "center",
+      "opacity": 1,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#fff",
+          "fontWeight": "bold",
+          "textAlign": "center",
+        },
+        Object {
+          "fontSize": 40,
+        },
+      ]
+    }
+  />
+</View>
+`;

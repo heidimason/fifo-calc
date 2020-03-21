@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PriceOfShares /> renders correctly 1`] = `
+<TextInput
+  allowFontScaling={true}
+  keyboardType="numeric"
+  placeholder="Price per Share"
+  rejectResponderTermination={true}
+  selectionColor="#222"
+  style={
+    Array [
+      Object {
+        "marginBottom": 15,
+      },
+      Object {
+        "borderRadius": 7,
+      },
+      Object {
+        "borderColor": "transparent",
+        "borderWidth": 0,
+      },
+      Array [
+        Object {
+          "fontSize": 40,
+        },
+        Object {
+          "backgroundColor": "#fff",
+          "color": "#aaa",
+          "height": 45,
+          "marginHorizontal": 40,
+          "textAlign": "center",
+        },
+      ],
+    ]
+  }
+  underlineColorAndroid="transparent"
+/>
+`;
