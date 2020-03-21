@@ -16,7 +16,7 @@ describe('<HomeScreen />', () => {
 		expect(tree).toMatchSnapshot()
 	})
 
-	it('has 1 child', () => {
+	it('has 8 children', () => {
 		expect(tree.children.length).toBe(8)
 	})
 })
@@ -28,7 +28,7 @@ describe('calculateProfit', () => {
 		expect(typeof calculateProfit).toEqual('object')
 	})
 
-	it('calculates 1 purchase and 1 sale correctly', () => {
+	it('calculates 1 purchase and 1 sale correctly when profit is positive', () => {
 		const calculateProfit = jest.fn(),
 					purchases = [
 						{
@@ -39,6 +39,7 @@ describe('calculateProfit', () => {
 
 					  saleNum = 80,
 					salePrice = 35,
+
 					 expected = 800
 
 		let profit = 0,
@@ -46,37 +47,35 @@ describe('calculateProfit', () => {
 
 		calculateProfit.mockReturnValueOnce(800)
 
-		result = calculateProfit(purchases, saleNum, salePrice, profit)
+		result = calculateProfit(purchases, saleNum, salePrice, profit = 0 || profit)
 
 		expect(result).toEqual(expected)
 	})
+
+	it('calculates 1 purchase and 1 sale correctly when profit is negative', () => {
+		// const calculateProfit = jest.fn(),
+		// 			purchases = [
+		// 				{
+		// 					num: 100,
+		// 					price: 25
+		// 				}
+		// 			],
+
+		// 			  saleNum = 80,
+		// 			salePrice = 10,
+
+		// 			 expected = -1200
+
+		// let profit = 0,
+		// 	result
+
+		// calculateProfit.mockReturnValueOnce(profit)
+
+		// result = calculateProfit(purchases, saleNum, salePrice, profit = 0 || profit)
+
+		// expect(result).toEqual(expected)
+	})
 })
-
-// describe('calculateProfit function', () => {
-// 	let wrapper
-
-// 	beforeEach(() => wrapper = shallow(<HomeScreen />))
-
-// 	test('calculates profit correctly', () => {
-// 		wrapper.setState({ profit: 0 })
-// 		wrapper.setState({ purchases: ['num': 100, 'price': 25] })
-// 		wrapper.setState({ purchaseNum: '100' })
-// 		wrapper.setState({ purchasePrice: '25' })
-// 	    wrapper.setState({ saleNum: '80' })
-// 	    wrapper.setState({ salePrice: '35' })
-// 	    wrapper.instance().calculateProfit()
-// 	    expect(wrapper.state('profit')).toEqual('800')
-// 	// 	expect( calculateProfit([{num: 100, price: 25}], 80, 35, 0) ).toBe(800)
-// 	})
-// })
-
-// 1. Working
-// Purchases
-// 	100, 25
-
-// Sale
-// 80, 35
-// Answer: 800
 
 // 2. Working
 // Purchases
