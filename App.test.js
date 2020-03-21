@@ -10,7 +10,7 @@ describe('<FifoCalculator />', () => {
 		expect(tree).toMatchSnapshot()
 	})
 
-	it('has 1 child', () => {
+	it('has 2 children', () => {
 		expect(tree.children.length).toBe(2)
 	})
 })
